@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>POS Billing | Login</title>
+
+    <link rel="stylesheet"
+          href="css/login.css">
+
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-card">
+
+            <!-- ================= LEFT PANEL ================= -->
+
+            <div class="brand-panel">
+
+                <div class="brand-content">
+
+                    <div class="brand-logo">
+                        <span>POS</span>
+                    </div>
+
+                    <div class="brand-title">
+
+                        <h1>
+                            POS <span>Billing</span>
+                        </h1>
+
+                        <p>
+                            Smart. Fast. Secure.
+                        </p>
+
+                    </div>
+
+                    <div class="brand-description">
+
+                        <p>
+                            Manage your billing, sales and
+                            retail operations from one powerful
+                            platform.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-list">
+
+                        <div class="feature-item">
+
+                            <div class="feature-icon">
+                                ⚡
+                            </div>
+
+                            <div>
+                                <strong>Fast Billing</strong>
+                                <small>
+                                    Quick and reliable billing
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <div class="feature-icon">
+                                🔐
+                            </div>
+
+                            <div>
+                                <strong>Secure Access</strong>
+                                <small>
+                                    Protected employee login
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <div class="feature-icon">
+                                📊
+                            </div>
+
+                            <div>
+                                <strong>Business Management</strong>
+                                <small>
+                                    Complete retail control
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="brand-footer">
+
+                    <span>
+                        POS Billing System
+                    </span>
+
+                    <span>
+                        v1.0.0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= RIGHT PANEL ================= -->
+
+            <div class="form-panel">
+
+                <div class="form-container">
+
+
+                    <!-- Header -->
+
+                    <div class="form-header">
+
+                        <div class="mobile-logo">
+                            POS
+                        </div>
+
+                        <h2>
+                            Welcome back
+                        </h2>
+
+                        <p>
+                            Sign in to continue to your account
+                        </p>
+
+                    </div>
+
+
+                    <!-- Login Form -->
+
+                    <form id="loginForm">
+
+
+                        <!-- Username -->
+
+                        <div class="form-group">
+
+                            <label for="userName">
+                                Username
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    👤
+                                </span>
+
+                                <input type="text"
+                                       id="userName"
+                                       name="userName"
+                                       placeholder="Enter username"
+                                       autocomplete="username"
+                                       maxlength="50">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Password -->
+
+                        <div class="form-group">
+
+                            <div class="label-row">
+
+                                <label for="password">
+                                    Password
+                                </label>
+
+                            </div>
+
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    🔒
+                                </span>
+
+                                <input type="password"
+                                       id="password"
+                                       name="password"
+                                       placeholder="Enter password"
+                                       autocomplete="current-password"
+                                       maxlength="50">
+
+                                <button type="button" id="togglePassword"
+                                        class="password-toggle"
+                                        aria-label="Show password">
+
+                                    👁
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Error -->
+
+                        <div id="errorMessage"
+                             class="error-message">
+
+                        </div>
+
+
+                        <!-- Login -->
+
+                        <button type="submit"
+                                id="loginButton"
+                                class="login-button">
+
+                            <span id="loginButtonText">
+                                Sign In
+                            </span>
+
+                            <span id="loginLoader"
+                                  class="button-loader">
+                            </span>
+
+                        </button>
+
+
+                        <!-- Divider -->
+
+                        <div class="divider">
+
+                            <span>
+                                OR
+                            </span>
+
+                        </div>
+
+
+                        <!-- QR Scan -->
+
+                        <button type="button"
+                                id="scanQrButton"
+                                class="qr-button">
+
+                            <span class="qr-button-icon">
+                                ▦
+                            </span>
+
+                            <span>
+                                Scan Employee ID Card
+                            </span>
+
+                        </button>
+
+
+                        <p class="qr-help">
+
+                            Scan your employee QR card
+                            for quick login
+
+                        </p>
+
+
+                    </form>
+
+
+                    <!-- Footer -->
+
+                    <div class="form-footer">
+
+                        <span>
+                            © 2026 POS Billing System
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- QR Scanner Modal -->
+
+    <div id="qrModal"
+         class="qr-modal">
+
+
+        <div class="qr-modal-content">
+
+
+            <div class="qr-modal-header">
+
+                <div>
+
+                    <h3>
+                        Scan Employee ID
+                    </h3>
+
+                    <p>
+                        Position the QR code inside the frame
+                    </p>
+
+                </div>
+
+
+                <button type="button"
+                        id="closeQrButton"
+                        class="close-button">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="scanner-container">
+
+                <video id="qrVideo"
+                       autoplay
+                       playsinline>
+                </video>
+
+
+                <div class="scanner-overlay">
+
+                    <div class="scanner-frame">
+
+                        <span class="corner top-left"></span>
+                        <span class="corner top-right"></span>
+                        <span class="corner bottom-left"></span>
+                        <span class="corner bottom-right"></span>
+
+                        <div class="scan-line"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="scannerStatus"
+                 class="scanner-status">
+
+                Waiting for QR code...
+
+            </div>
+
+
+            <button type="button"
+                    id="cancelScanButton"
+                    class="cancel-button">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

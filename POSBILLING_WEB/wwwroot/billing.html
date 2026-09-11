@@ -1,0 +1,1138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#07366d">
+
+    <title>Billing</title>
+
+    <link rel="stylesheet" href="css/billing.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         PAGE HEADER
+    ========================================================== -->
+    <header class="top-header">
+        <div class="brand-title">
+            BILLING
+        </div>
+
+        <div class="header-status">
+            <span id="connectionStatus"
+                  class="status-dot online"></span>
+            <span id="connectionText">ONLINE</span>
+        </div>
+    </header>
+
+
+    <!-- =========================================================
+         MAIN CONTAINER
+    ========================================================== -->
+    <main class="billing-container">
+
+
+        <!-- =====================================================
+             TOP SUMMARY HEADER
+        ====================================================== -->
+        <section class="top-summary-grid">
+
+            <!-- BILL NO -->
+            <div class="summary-card bill-no-card">
+
+                <div class="summary-title">
+                    BILL NO
+                </div>
+
+                <div class="bill-number"
+                     id="billNumber">
+                    -
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL ITEMS -->
+            <div class="summary-card">
+
+                <div class="summary-title">
+                    TOTAL ITEMS
+                </div>
+
+                <div class="summary-value"
+                     id="headerTotalItems">
+                    0
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL QTY -->
+            <div class="summary-card">
+
+                <div class="summary-title">
+                    TOTAL QTY
+                </div>
+
+                <div class="summary-value"
+                     id="headerTotalQty">
+                    0
+                </div>
+
+            </div>
+
+
+            <!-- BILL AMOUNT -->
+            <div class="summary-card amount-card">
+
+                <div class="summary-title">
+                    BILL AMOUNT (₹)
+                </div>
+
+                <div class="bill-amount"
+                     id="headerBillAmount">
+                    ₹ 0.00
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             MAIN WORK AREA
+        ====================================================== -->
+        <section class="main-layout">
+
+
+            <!-- =================================================
+                 LEFT / CENTER CONTENT
+            ================================================== -->
+            <div class="main-content">
+
+
+                <!-- =============================================
+                     CUSTOMER + BILL INFORMATION
+                ============================================== -->
+                <!--<section class="info-grid">-->
+                <!-- CUSTOMER INFO -->
+                <!--<div class="panel customer-panel">
+
+                    <div class="panel-header">
+                        CUSTOMER INFO
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group">
+
+                            <label for="mobileNo">
+                                Mobile No
+                            </label>
+
+                            <div class="input-with-button">
+
+                                <input type="text"
+                                       id="mobileNo"
+                                       placeholder="Enter Mobile No"
+                                       maxlength="10"
+                                       autocomplete="off">
+
+                                <button type="button"
+                                        id="searchCustomerBtn"
+                                        class="icon-button"
+                                        title="Search Customer">
+                                    🔍
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="customerName">
+                                Customer Name
+                            </label>
+
+                            <input type="text"
+                                   id="customerName"
+                                   placeholder="Enter Customer Name"
+                                   autocomplete="off">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="dummyCount">
+                                Dummy Count
+                            </label>
+
+                            <input type="number"
+                                   id="dummyCount"
+                                   value="0"
+                                   min="0">
+
+                        </div>
+
+                    </div>
+
+                </div>-->
+                <!-- BILL INFORMATION -->
+                <!--<div class="panel bill-info-panel">
+
+                        <div class="panel-header">
+                            BILL INFORMATION
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="two-column-form">
+
+                                <div class="form-group">
+
+                                    <label for="billDate">
+                                        DATE
+                                    </label>
+
+                                    <input type="datetime-local"
+                                           id="billDate">
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="financialYear">
+                                        FINANCIAL YEAR
+                                    </label>
+
+                                    <select id="financialYear">
+
+                                        <option value="2026-2027">
+                                            2026-2027
+                                        </option>
+
+                                        <option value="2025-2026">
+                                            2025-2026
+                                        </option>
+
+                                        <option value="2027-2028">
+                                            2027-2028
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="customer-mini-info">
+
+                                <div>
+                                    <span>Customer Type</span>
+                                    <strong id="customerType">
+                                        WALK-IN
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Opening Due</span>
+                                    <strong id="openingDue">
+                                        ₹ 0.00
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Loyalty Points</span>
+                                    <strong id="loyaltyPoints">
+                                        0
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>-->
+                <!-- =============================================
+                     SCAN / ITEM ENTRY
+                ============================================== -->
+                <section class="panel item-entry-panel">
+
+                    <div class="panel-header">
+                        SCAN / ITEM ENTRY
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="item-entry-grid">
+
+
+                            <!-- ITEM CODE -->
+                            <div class="form-group item-code-group">
+
+                                <label for="itemCode">
+                                    SCAN / ITEM CODE *
+                                </label>
+
+                                <div class="input-with-button">
+
+                                    <input type="text"
+                                           id="itemCode"
+                                           placeholder="Scan Barcode or Enter Item Code"
+                                           autocomplete="off">
+
+                                    <button type="button"
+                                            class="icon-button barcode-button"
+                                            id="barcodeButton"
+                                            title="Barcode">
+                                        ▥
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EC NO -->
+                            <div class="form-group">
+
+                                <label for="ecNo">
+                                    EC NO
+                                </label>
+
+                                <input type="text"
+                                       id="ecNo"
+                                       placeholder="Enter EC No">
+
+                            </div>
+
+
+                            <!-- OFFER TYPE -->
+                            <!--<div class="form-group">
+
+                                <label for="offerType">
+                                    OFFER TYPE
+                                </label>
+
+                                <select id="offerType">
+
+                                    <option value="Normal">
+                                        Normal
+                                    </option>
+
+                                    <option value="VIP">
+                                        VIP
+                                    </option>
+
+                                    <option value="Festival">
+                                        Festival
+                                    </option>
+
+                                    <option value="Staff">
+                                        Staff
+                                    </option>
+
+                                </select>
+
+                            </div>-->
+
+
+                            <!-- QTY -->
+                            <!--<div class="form-group qty-group">
+
+                                <label for="itemQty">
+                                    QTY *
+                                </label>
+
+                                <input type="number"
+                                       id="itemQty"
+                                       value="1"
+                                       min="1"
+                                       step="1">
+
+                            </div>-->
+
+
+                            <!-- ADD -->
+                            <div class="add-button-wrapper">
+
+                                <button type="button"
+                                        id="addItemBtn"
+                                        class="btn btn-success add-btn">
+
+                                    ADD
+                                    <span>(Enter)</span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     ITEM TABLE
+                ============================================== -->
+                <section class="panel item-table-panel">
+
+                    <div class="table-wrapper">
+
+                        <table id="billingTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th class="col-no">#</th>
+
+                                    <th>ITEM CODE</th>
+
+                                    <th>ITEM NAME</th>
+
+                                    <th>EC NO</th>
+
+                                    <th>MRP</th>
+
+                                    <th>QTY</th>
+
+                                    <th>DISC %</th>
+
+                                    <th>DISC VAL</th>
+
+                                    <th>TOTAL</th>
+
+                                    <th>HSN CODE</th>
+
+                                    <th>GST %</th>
+
+                                    <th>GST AMT</th>
+
+                                    <th>ACTION</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="billingTableBody">
+
+                                <!-- JS inserts rows -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     TABLE FOOTER
+                ============================================== -->
+                <section class="table-footer">
+
+                    <div class="footer-counter">
+
+                        <div class="counter-item">
+
+                            <span>Total Items</span>
+
+                            <input type="text"
+                                   id="footerTotalItems"
+                                   value="0"
+                                   readonly>
+
+                        </div>
+
+
+                        <div class="counter-item">
+
+                            <span>Total Qty</span>
+
+                            <input type="text"
+                                   id="footerTotalQty"
+                                   value="0"
+                                   readonly>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="action-buttons">
+
+                        <button type="button"
+                                id="removeBtn"
+                                class="btn btn-danger">
+
+                            REMOVE (Del)
+
+                        </button>
+
+
+                        <button type="button"
+                                id="qtyPlusBtn"
+                                class="btn btn-primary">
+
+                            QTY + (F6)
+
+                        </button>
+
+
+                        <button type="button"
+                                id="qtyMinusBtn"
+                                class="btn btn-primary">
+
+                            QTY - (F7)
+
+                        </button>
+
+
+                        <button type="button"
+                                id="discountBtn"
+                                class="btn btn-warning">
+
+                            DISCOUNT (F9)
+
+                        </button>
+
+
+                        <button type="button"
+                                id="clearBtn"
+                                class="btn btn-danger">
+
+                            CLEAR (F11)
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     BOTTOM INFORMATION
+                ============================================== -->
+                <section class="bottom-grid">
+
+
+                    <!-- CUSTOMER DETAILS -->
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            CUSTOMER DETAILS
+                        </div>
+
+                        <div class="panel-body details-list">
+
+                            <div>
+                                <span>Mobile No</span>
+                                <strong id="detailMobile">
+                                    -
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Name</span>
+                                <strong id="detailName">
+                                    -
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Customer Type</span>
+                                <strong id="detailCustomerType">
+                                    WALK-IN
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Opening Due</span>
+                                <strong>
+                                    ₹ 0.00
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Loyalty Points</span>
+                                <strong>
+                                    0
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- DISCOUNT DETAILS -->
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            DISCOUNT DETAILS
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="form-group">
+
+                                <label for="discountType">
+                                    Discount Type
+                                </label>
+
+                                <select id="discountType">
+
+                                    <option value="None">
+                                        No Discount
+                                    </option>
+
+                                    <option value="VIP">
+                                        VIP Discount
+                                    </option>
+
+                                    <option value="Festival">
+                                        Festival Discount
+                                    </option>
+
+                                    <option value="Staff">
+                                        Staff Discount
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="cardNo">
+                                    Card No
+                                </label>
+
+                                <input type="text"
+                                       id="cardNo"
+                                       placeholder="Enter Card No">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="staffEcNo">
+                                    Staff EC No
+                                </label>
+
+                                <input type="text"
+                                       id="staffEcNo"
+                                       placeholder="Enter Staff EC No">
+
+                            </div>
+
+
+                            <div class="discount-input-row">
+
+                                <div class="form-group">
+
+                                    <label for="discountPercent">
+                                        Discount %
+                                    </label>
+
+                                    <input type="number"
+                                           id="discountPercent"
+                                           value="0"
+                                           min="0"
+                                           max="100"
+                                           step="0.01">
+
+                                </div>
+
+
+                                <button type="button"
+                                        id="applyDiscountBtn"
+                                        class="btn btn-success apply-btn">
+
+                                    APPLY
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SHORTCUT KEYS -->
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            SHORTCUT KEYS
+                        </div>
+
+                        <div class="panel-body shortcut-grid">
+
+                            <div>
+                                <span>F1</span>
+                                <label>New Bill</label>
+                            </div>
+
+                            <div>
+                                <span>F9</span>
+                                <label>Discount</label>
+                            </div>
+
+                            <div>
+                                <span>F2</span>
+                                <label>Cash</label>
+                            </div>
+
+                            <div>
+                                <span>F10</span>
+                                <label>Calculator</label>
+                            </div>
+
+                            <div>
+                                <span>F3</span>
+                                <label>Pending Bills</label>
+                            </div>
+
+                            <div>
+                                <span>F11</span>
+                                <label>Clear</label>
+                            </div>
+
+                            <div>
+                                <span>F4</span>
+                                <label>Denomination</label>
+                            </div>
+
+                            <div>
+                                <span>Del</span>
+                                <label>Remove Item</label>
+                            </div>
+
+                            <div>
+                                <span>F5</span>
+                                <label>Paid Parcel</label>
+                            </div>
+
+                            <div>
+                                <span>Esc</span>
+                                <label>Cancel</label>
+                            </div>
+
+                            <div>
+                                <span>F6</span>
+                                <label>Hold Bill</label>
+                            </div>
+
+                            <div>
+                                <span>Ctrl+P</span>
+                                <label>Print</label>
+                            </div>
+
+                            <div>
+                                <span>F7</span>
+                                <label>Qty +</label>
+                            </div>
+
+                            <div>
+                                <span>Ctrl+R</span>
+                                <label>Reprint</label>
+                            </div>
+
+                            <div>
+                                <span>F8</span>
+                                <label>Save & Print</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RIGHT SIDEBAR
+            ================================================== -->
+            <aside class="right-sidebar">
+
+
+                <!-- =============================================
+                     BILL SUMMARY
+                ============================================== -->
+                <div class="panel summary-panel">
+
+                    <div class="panel-header">
+                        BILL SUMMARY
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="summary-row">
+
+                            <span>Sub Total</span>
+
+                            <b>:</b>
+
+                            <strong id="subTotal">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="summary-row">
+
+                            <span>Total Discount</span>
+
+                            <b>:</b>
+
+                            <strong id="totalDiscount">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="summary-row">
+
+                            <span>Taxable Amount</span>
+
+                            <b>:</b>
+
+                            <strong id="taxableAmount">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="summary-row">
+
+                            <span>Total GST</span>
+
+                            <b>:</b>
+
+                            <strong id="totalGst">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="summary-row">
+
+                            <span>Round Off</span>
+
+                            <b>:</b>
+
+                            <strong id="roundOff">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="net-amount-box">
+
+                            <div>
+
+                                <span>NET AMOUNT</span>
+
+                                <small>(Incl. tax)</small>
+
+                            </div>
+
+                            <strong id="netAmount">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     PAYMENT DETAILS
+                ============================================== -->
+                <div class="panel payment-panel">
+
+                    <div class="panel-header">
+                        PAYMENT DETAILS
+                    </div>
+
+                    <div class="panel-body">
+
+                        <!-- CASH -->
+                        <div class="payment-row">
+
+                            <label for="cashAmount">
+                                Cash
+                            </label>
+
+                            <span>:</span>
+
+                            <input type="number"
+                                   id="cashAmount"
+                                   value="0"
+                                   min="0"
+                                   step="0.01">
+
+                        </div>
+
+
+                        <!-- CARD -->
+                        <div class="payment-row">
+
+                            <label for="cardAmount">
+                                Card (Paytm POS)
+                            </label>
+
+                            <span>:</span>
+
+                            <input type="number"
+                                   id="cardAmount"
+                                   value="0"
+                                   min="0"
+                                   step="0.01">
+
+                        </div>
+
+
+                        <!-- UPI -->
+                        <div class="payment-row">
+
+                            <label for="upiAmount">
+                                UPI (Paytm)
+                            </label>
+
+                            <span>:</span>
+
+                            <input type="number"
+                                   id="upiAmount"
+                                   value="0"
+                                   min="0"
+                                   step="0.01">
+
+                        </div>
+
+
+                        <!-- EXCHANGE -->
+                        <div class="payment-row">
+
+                            <label for="exchangeAmount">
+                                Exchange
+                            </label>
+
+                            <span>:</span>
+
+                            <div class="payment-input-with-button">
+
+                                <input type="number"
+                                       id="exchangeAmount"
+                                       value="0"
+                                       min="0"
+                                       step="0.01">
+
+                                <button type="button"
+                                        class="small-more-btn"
+                                        id="exchangeMoreBtn">
+                                    ...
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ADVANCE -->
+                        <div class="payment-row">
+
+                            <label for="advanceAmount">
+                                Advance
+                            </label>
+
+                            <span>:</span>
+
+                            <div class="payment-input-with-button">
+
+                                <input type="number"
+                                       id="advanceAmount"
+                                       value="0"
+                                       min="0"
+                                       step="0.01">
+
+                                <button type="button"
+                                        class="small-more-btn"
+                                        id="advanceMoreBtn">
+                                    ...
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CHEQUE -->
+                        <div class="payment-row">
+
+                            <label for="chequeAmount">
+                                Cheque
+                            </label>
+
+                            <span>:</span>
+
+                            <div class="payment-input-with-button">
+
+                                <input type="number"
+                                       id="chequeAmount"
+                                       value="0"
+                                       min="0"
+                                       step="0.01">
+
+                                <button type="button"
+                                        class="small-more-btn"
+                                        id="chequeMoreBtn">
+                                    ...
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- GIFT VOUCHER -->
+                        <div class="payment-row">
+
+                            <label for="giftVoucherAmount">
+                                Gift Voucher
+                            </label>
+
+                            <span>:</span>
+
+                            <input type="number"
+                                   id="giftVoucherAmount"
+                                   value="0"
+                                   min="0"
+                                   step="0.01">
+
+                        </div>
+
+
+                        <div class="payment-divider"></div>
+
+
+                        <!-- TOTAL PAID -->
+                        <div class="total-paid-row">
+
+                            <span>
+                                TOTAL PAID
+                            </span>
+
+                            <strong id="totalPaid">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <!-- BALANCE -->
+                        <div class="balance-row">
+
+                            <span>
+                                BALANCE
+                            </span>
+
+                            <strong id="balanceAmount">
+                                ₹ 0.00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     MAIN ACTIONS
+                ============================================== -->
+                <div class="main-actions">
+
+                    <button type="button"
+                            id="savePrintBtn"
+                            class="btn btn-success save-btn">
+
+                        <span>▣</span>
+                        SAVE & PRINT (F8)
+
+                    </button>
+
+
+                    <button type="button"
+                            id="cancelBtn"
+                            class="btn btn-danger cancel-btn">
+
+                        <span>✕</span>
+                        CANCEL (Esc)
+
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+    <div id="toast"
+         class="toast">
+        <span id="toastMessage">
+            Ready
+        </span>
+    </div>
+
+   
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+    <script src="js/billing.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>POS Billing - Employee Login</title>
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="login-page">
+
+        <div class="bg-glow glow-one"></div>
+        <div class="bg-glow glow-two"></div>
+
+        <div class="login-card">
+
+            <!-- BRAND -->
+            <div class="brand">
+
+                <div class="brand-icon">
+                    POS
+                </div>
+
+                <div class="brand-text">
+                    <h1>POS BILLING</h1>
+                    <span>SECURE EMPLOYEE ACCESS</span>
+                </div>
+
+            </div>
+
+
+            <!-- INITIATE -->
+            <div class="initiate-section"
+                 id="initiateSection">
+
+                <div class="welcome-icon">
+
+                    <div class="pulse-ring"></div>
+
+                    <div class="scan-icon">
+                        ▣
+                    </div>
+
+                </div>
+
+                <h2>Welcome</h2>
+
+                <p>
+                    Start your billing session
+                </p>
+
+                <button type="button"
+                        id="initiateBtn"
+                        class="initiate-btn">
+
+                    <span class="btn-shine"></span>
+
+                    <span class="initiate-icon">
+                        ▶
+                    </span>
+
+                    INITIATE
+
+                </button>
+
+                <div class="secure-note">
+
+                    <span class="secure-dot"></span>
+
+                    Secure Employee Authentication
+
+                </div>
+
+            </div>
+
+
+            <!-- EC LOGIN -->
+            <div class="ec-login-section hidden"
+                 id="ecLoginSection">
+
+                <div class="scanner-header">
+
+                    <div>
+
+                        <span class="scanner-label">
+                            EMPLOYEE AUTHENTICATION
+                        </span>
+
+                        <h2>
+                            Scan Employee ID Card
+                        </h2>
+
+                    </div>
+
+                    <div class="scanner-status">
+
+                        <span class="status-dot"></span>
+
+                        READY
+
+                    </div>
+
+                </div>
+
+
+                <!-- EC INPUT -->
+
+                <div class="ec-input-wrapper">
+
+                    <label for="ecNo">
+                        EC NO
+                    </label>
+
+                    <div class="ec-input-box">
+
+                        <span class="ec-icon">
+                            ID
+                        </span>
+
+                        <input type="text"
+                               id="ecNo"
+                               name="ecNo"
+                               autocomplete="off"
+                               spellcheck="false"
+                               placeholder="Scan Employee ID Card" />
+
+                        <span class="input-status"
+                              id="inputStatus">
+                        </span>
+
+                    </div>
+
+                    <div class="input-hint">
+
+                        <span class="scanner-symbol">
+                            ▣
+                        </span>
+
+                        Place your Employee ID card on the scanner
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCANNER ANIMATION -->
+
+                <div class="scanner-visual">
+
+                    <div class="scan-card">
+
+                        <div class="card-photo"></div>
+
+                        <div class="card-info">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="laser"></div>
+
+                </div>
+
+
+                <!-- VERIFYING -->
+
+                <div class="verify-message hidden"
+                     id="verifyMessage">
+
+                    <span class="loading-circle"></span>
+
+                    Verifying Employee...
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div class="error-message hidden"
+                     id="errorMessage">
+
+                    <div class="error-icon">
+                        !
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Invalid EC No
+                        </strong>
+
+                        <span>
+                            Please contact Admin
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BACK -->
+
+                <button type="button"
+                        id="backBtn"
+                        class="back-btn">
+
+                    ← Back
+
+                </button>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="login-footer">
+
+                <span>
+                    © 2026 POS Billing System
+                </span>
+
+                <span class="footer-divider">
+                    •
+                </span>
+
+                <span>
+                    Authorized Employees Only
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/login.js"></script>
+
+</body>
+</html>

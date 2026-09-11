@@ -1,0 +1,812 @@
+﻿/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: radial-gradient( circle at 10% 10%, rgba(37, 136, 255, 0.08), transparent 30% ), radial-gradient( circle at 90% 90%, rgba(0, 198, 255, 0.06), transparent 30% ), #f4f7fb;
+    color: #172033;
+}
+
+
+/* =========================================================
+   LOGIN PAGE
+========================================================= */
+
+.login-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login-card {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 650px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+    overflow: hidden;
+    border-radius: 24px;
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    box-shadow: 0 25px 70px rgba(30, 55, 90, 0.12);
+}
+
+
+/* =========================================================
+   BRAND PANEL
+========================================================= */
+
+.brand-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px;
+    overflow: hidden;
+    background: linear-gradient( 145deg, #f7fbff 0%, #edf6ff 55%, #e8f2fc 100% );
+}
+
+    .brand-panel::before {
+        content: "";
+        position: absolute;
+        width: 450px;
+        height: 450px;
+        right: -180px;
+        top: -180px;
+        border-radius: 50%;
+        background: rgba(37, 136, 255, 0.07);
+    }
+
+    .brand-panel::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        left: -180px;
+        bottom: -180px;
+        border-radius: 50%;
+        background: rgba(0, 198, 255, 0.06);
+    }
+
+.brand-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.brand-logo {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: linear-gradient( 135deg, #2588ff, #00b9ff );
+    box-shadow: 0 15px 35px rgba(37, 136, 255, 0.22);
+    margin-bottom: 30px;
+}
+
+    .brand-logo span {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #ffffff;
+    }
+
+
+/* =========================================================
+   BRAND TITLE
+========================================================= */
+
+.brand-title h1 {
+    font-size: clamp(38px, 4vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: #152033;
+}
+
+    .brand-title h1 span {
+        color: #2588ff;
+    }
+
+.brand-title p {
+    margin-top: 12px;
+    color: #3975a8;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.brand-description {
+    max-width: 440px;
+    margin-top: 25px;
+}
+
+    .brand-description p {
+        color: #66758a;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.feature-list {
+    margin-top: 38px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.feature-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: rgba(37, 136, 255, 0.07);
+    border: 1px solid rgba(37, 136, 255, 0.12);
+    color: #2588ff;
+}
+
+.feature-item strong {
+    display: block;
+    color: #26364b;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.feature-item small {
+    color: #7d8da1;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   BRAND FOOTER
+========================================================= */
+
+.brand-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    color: #8a99ab;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FORM PANEL
+========================================================= */
+
+.form-panel {
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 390px;
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.form-header {
+    margin-bottom: 32px;
+}
+
+    .form-header h2 {
+        font-size: 29px;
+        letter-spacing: -0.5px;
+        color: #182235;
+    }
+
+    .form-header p {
+        color: #7b8899;
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+
+/* =========================================================
+   MOBILE LOGO
+========================================================= */
+
+.mobile-logo {
+    display: none;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #4c5b70;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #8190a3;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.input-wrapper input {
+    width: 100%;
+    height: 52px;
+    padding: 0 45px;
+    border-radius: 10px;
+    border: 1px solid #dce3ec;
+    outline: none;
+    background: #f9fbfd;
+    color: #182235;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+    .input-wrapper input::placeholder {
+        color: #9aa7b7;
+    }
+
+    .input-wrapper input:hover {
+        border-color: #cbd6e3;
+    }
+
+    .input-wrapper input:focus {
+        border-color: #2588ff;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(37, 136, 255, 0.08);
+    }
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #7c8b9d;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-button {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    background: linear-gradient( 135deg, #2588ff, #0878ed );
+    transition: all 0.2s ease;
+}
+
+    .login-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 30px rgba(37, 136, 255, 0.22);
+    }
+
+    .login-button:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.button-loader {
+    display: none;
+    width: 16px;
+    height: 16px;
+    margin-left: 7px;
+    vertical-align: middle;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+.login-button.loading .button-loader {
+    display: inline-block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0;
+    color: #98a5b5;
+    font-size: 10px;
+}
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: #e2e7ee;
+    }
+
+
+/* =========================================================
+   QR BUTTON
+========================================================= */
+
+.qr-button {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid #d5dee9;
+    background: #ffffff;
+    color: #415166;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+    .qr-button:hover {
+        border-color: #2588ff;
+        background: #f5faff;
+        color: #2588ff;
+    }
+
+.qr-button-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #2588ff;
+    border-radius: 5px;
+    color: #2588ff;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   QR HELP
+========================================================= */
+
+.qr-help {
+    text-align: center;
+    margin-top: 11px;
+    color: #8c9aaa;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error-message {
+    display: none;
+    margin-bottom: 15px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.06);
+    border: 1px solid rgba(220, 53, 69, 0.15);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.form-footer {
+    text-align: center;
+    margin-top: 35px;
+    color: #9aa6b5;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   QR MODAL
+========================================================= */
+
+.qr-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 25, 40, 0.55);
+    backdrop-filter: blur(8px);
+}
+
+    .qr-modal.active {
+        display: flex;
+    }
+
+.qr-modal-content {
+    width: 100%;
+    max-width: 430px;
+    padding: 25px;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid #e3e8ef;
+    box-shadow: 0 30px 80px rgba(20, 40, 70, 0.20);
+}
+
+.qr-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+    .qr-modal-header h3 {
+        font-size: 18px;
+        color: #1c293b;
+    }
+
+    .qr-modal-header p {
+        margin-top: 5px;
+        color: #8290a1;
+        font-size: 11px;
+    }
+
+.close-button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: #f1f4f8;
+    color: #657386;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+    .close-button:hover {
+        background: #e8edf3;
+        color: #26364b;
+    }
+
+
+/* =========================================================
+   SCANNER
+========================================================= */
+
+.scanner-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #edf1f5;
+}
+
+    .scanner-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.scanner-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scanner-frame {
+    position: relative;
+    width: 62%;
+    aspect-ratio: 1;
+}
+
+
+/* =========================================================
+   QR CORNERS
+========================================================= */
+
+.corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: #2588ff;
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+    border-top: 3px solid;
+    border-left: 3px solid;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+    border-top: 3px solid;
+    border-right: 3px solid;
+}
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+    border-bottom: 3px solid;
+    border-left: 3px solid;
+}
+
+.bottom-right {
+    bottom: 0;
+    right: 0;
+    border-bottom: 3px solid;
+    border-right: 3px solid;
+}
+
+
+/* =========================================================
+   SCAN LINE
+========================================================= */
+
+.scan-line {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 10%;
+    height: 2px;
+    background: #2588ff;
+    box-shadow: 0 0 10px rgba(37, 136, 255, 0.8);
+    animation: scanMove 2s infinite ease-in-out;
+}
+
+@keyframes scanMove {
+
+    0% {
+        top: 10%;
+    }
+
+    50% {
+        top: 88%;
+    }
+
+    100% {
+        top: 10%;
+    }
+}
+
+
+/* =========================================================
+   SCANNER STATUS
+========================================================= */
+
+.scanner-status {
+    text-align: center;
+    margin: 15px 0;
+    color: #718095;
+    font-size: 12px;
+}
+
+.cancel-button {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #d6dfe9;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #627287;
+    cursor: pointer;
+}
+
+    .cancel-button:hover {
+        background: #f6f8fa;
+        border-color: #c5d0dc;
+    }
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .login-page {
+        padding: 20px;
+    }
+
+    .login-card {
+        max-width: 720px;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .brand-panel {
+        padding: 40px;
+    }
+
+    .form-panel {
+        padding: 35px;
+    }
+
+    .feature-list {
+        margin-top: 25px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 680px) {
+
+    .login-page {
+        min-height: 100vh;
+        padding: 0;
+        align-items: stretch;
+    }
+
+    .login-card {
+        min-height: 100vh;
+        border-radius: 0;
+        border: none;
+        grid-template-columns: 1fr;
+    }
+
+    .brand-panel {
+        display: none;
+    }
+
+    .form-panel {
+        min-height: 100vh;
+        padding: 35px 22px;
+        align-items: center;
+    }
+
+    .form-container {
+        max-width: 430px;
+    }
+
+    .mobile-logo {
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        border-radius: 15px;
+        background: linear-gradient( 135deg, #2588ff, #00b9ff );
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .form-header h2 {
+        font-size: 27px;
+    }
+
+    .form-footer {
+        margin-top: 30px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .form-panel {
+        padding: 28px 18px;
+    }
+
+    .form-header h2 {
+        font-size: 24px;
+    }
+
+    .input-wrapper input {
+        height: 48px;
+    }
+
+    .login-button,
+    .qr-button {
+        height: 48px;
+    }
+}

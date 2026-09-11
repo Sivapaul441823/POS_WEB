@@ -1,0 +1,1515 @@
+﻿/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+    --primary: #07366d;
+    --primary-dark: #052b58;
+    --primary-light: #0b4a91;
+    --success: #119447;
+    --success-dark: #087b39;
+    --danger: #ef2b23;
+    --danger-dark: #d51f18;
+    --warning: #e99b00;
+    --warning-dark: #cc8500;
+    --blue: #0876d1;
+    --blue-dark: #075fa8;
+    --white: #ffffff;
+    --black: #111827;
+    --text: #13294b;
+    --muted: #64748b;
+    --border: #d5dce5;
+    --border-light: #e8edf3;
+    --background: #f4f7fb;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+    --radius: 5px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+input,
+select {
+    outline: none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top-header {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient( 90deg, #063365, #08437e );
+    color: var(--white);
+    border-bottom: 3px solid #0a579e;
+}
+
+
+.brand-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.9;
+}
+
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #21c55d;
+}
+
+
+    .status-dot.offline {
+        background: #ef4444;
+    }
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.billing-container {
+    width: 100%;
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+
+/* =========================================================
+   TOP SUMMARY
+========================================================= */
+
+.top-summary-grid {
+    display: grid;
+    grid-template-columns: minmax(145px, 0.75fr) minmax(150px, 0.8fr) minmax(150px, 0.8fr) minmax(340px, 2fr);
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.summary-card {
+    min-width: 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    min-height: 118px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.summary-title {
+    width: 100%;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    background: linear-gradient( 180deg, #083a74, #052e5d );
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    text-align: center;
+}
+
+
+.summary-value {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: clamp(32px, 3vw, 48px);
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+
+.bill-number {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #101820;
+    font-size: clamp(34px, 3vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    white-space: nowrap;
+}
+
+
+.bill-amount {
+    flex: 1;
+    min-width: 0;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: clamp(34px, 4vw, 62px);
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.main-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 350px);
+    gap: 10px;
+    align-items: start;
+}
+
+
+.main-content {
+    min-width: 0;
+}
+
+
+.right-sidebar {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.panel {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+
+.panel-header {
+    min-height: 34px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient( 180deg, #083b75, #052e5d );
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+
+
+.panel-body {
+    padding: 10px;
+}
+
+
+/* =========================================================
+   CUSTOMER / BILL INFO
+========================================================= */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: minmax(290px, 0.9fr) minmax(400px, 1.6fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+
+.customer-panel,
+.bill-info-panel {
+    min-width: 0;
+}
+
+
+.form-group {
+    width: 100%;
+    min-width: 0;
+}
+
+
+    .form-group + .form-group {
+        margin-top: 10px;
+    }
+
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+
+input,
+select {
+    width: 100%;
+    height: 34px;
+    padding: 6px 10px;
+    border: 1px solid #ccd5e0;
+    border-radius: 4px;
+    background: #fff;
+    color: var(--text);
+    font-size: 13px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+    input:focus,
+    select:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 2px rgba(8, 74, 145, 0.10);
+    }
+
+
+    input::placeholder {
+        color: #8390a2;
+    }
+
+
+.input-with-button {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+}
+
+
+    .input-with-button input {
+        flex: 1;
+        min-width: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+
+.icon-button {
+    width: 36px;
+    flex: 0 0 36px;
+    border: 1px solid #ccd5e0;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    background: #f5f8fc;
+    color: var(--primary);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+    .icon-button:hover {
+        background: #eaf1f9;
+    }
+
+
+.two-column-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+}
+
+
+    .two-column-form .form-group + .form-group {
+        margin-top: 0;
+    }
+
+
+.customer-mini-info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-light);
+}
+
+
+    .customer-mini-info div {
+        min-width: 0;
+    }
+
+
+    .customer-mini-info span {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        margin-bottom: 3px;
+    }
+
+
+    .customer-mini-info strong {
+        display: block;
+        color: var(--text);
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+/* =========================================================
+   ITEM ENTRY
+========================================================= */
+
+.item-entry-panel {
+    margin-bottom: 10px;
+}
+
+
+.item-entry-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 2.4fr) minmax(120px, 0.8fr) minmax(140px, 1fr) minmax(80px, 0.6fr) 135px;
+    gap: 10px;
+    align-items: end;
+}
+
+
+    .item-entry-grid .form-group + .form-group {
+        margin-top: 0;
+    }
+
+
+.add-button-wrapper {
+    width: 100%;
+}
+
+
+.add-btn {
+    width: 100%;
+    height: 34px;
+}
+
+
+    .add-btn span {
+        font-weight: 600;
+        margin-left: 3px;
+    }
+
+
+.barcode-button {
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    border: 0;
+    border-radius: 4px;
+    min-height: 36px;
+    padding: 7px 13px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform 0.08s ease, background 0.15s ease;
+}
+
+
+    .btn:active {
+        transform: translateY(1px);
+    }
+
+
+.btn-success {
+    background: var(--success);
+}
+
+
+    .btn-success:hover {
+        background: var(--success-dark);
+    }
+
+
+.btn-danger {
+    background: var(--danger);
+}
+
+
+    .btn-danger:hover {
+        background: var(--danger-dark);
+    }
+
+
+.btn-primary {
+    background: var(--blue);
+}
+
+
+    .btn-primary:hover {
+        background: var(--blue-dark);
+    }
+
+
+.btn-warning {
+    background: var(--warning);
+    color: #fff;
+}
+
+
+    .btn-warning:hover {
+        background: var(--warning-dark);
+    }
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.item-table-panel {
+    min-width: 0;
+    margin-bottom: 10px;
+}
+
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+
+
+table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+thead th {
+    height: 38px;
+    padding: 6px 7px;
+    background: linear-gradient( 180deg, #0a407c, #062e5d );
+    color: white;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    font-size: 11px;
+    font-weight: 800;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+tbody td {
+    height: 46px;
+    padding: 6px 7px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+tbody tr:hover {
+    background: #f5f9fd;
+}
+
+
+.col-no {
+    width: 45px;
+}
+
+
+table th:nth-child(2) {
+    width: 120px;
+}
+
+
+table th:nth-child(3) {
+    width: 160px;
+}
+
+
+table th:nth-child(4) {
+    width: 80px;
+}
+
+
+table th:nth-child(5) {
+    width: 75px;
+}
+
+
+table th:nth-child(6) {
+    width: 60px;
+}
+
+
+table th:nth-child(7) {
+    width: 75px;
+}
+
+
+table th:nth-child(8) {
+    width: 85px;
+}
+
+
+table th:nth-child(9) {
+    width: 85px;
+}
+
+
+table th:nth-child(10) {
+    width: 90px;
+}
+
+
+table th:nth-child(11) {
+    width: 70px;
+}
+
+
+table th:nth-child(12) {
+    width: 90px;
+}
+
+
+table th:nth-child(13) {
+    width: 70px;
+}
+
+
+.delete-item {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--danger);
+    font-size: 17px;
+}
+
+
+    .delete-item:hover {
+        background: #fff0ef;
+    }
+
+
+.selected-row {
+    background: #eaf3ff !important;
+    outline: 2px solid rgba(8, 118, 209, 0.15);
+}
+
+
+/* =========================================================
+   TABLE FOOTER
+========================================================= */
+
+.table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+
+.footer-counter {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+
+.counter-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+    .counter-item span {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--text);
+        white-space: nowrap;
+    }
+
+
+    .counter-item input {
+        width: 64px;
+        text-align: center;
+        font-weight: 800;
+        background: #fff;
+    }
+
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+
+    .action-buttons .btn {
+        min-height: 36px;
+    }
+
+
+/* =========================================================
+   BOTTOM GRID
+========================================================= */
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: minmax(230px, 1fr) minmax(260px, 1.1fr) minmax(300px, 1.3fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+    .details-list div {
+        display: grid;
+        grid-template-columns: 110px 15px minmax(0, 1fr);
+        gap: 4px;
+        align-items: center;
+    }
+
+
+    .details-list span {
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+
+        .details-list span::after {
+            content: "";
+        }
+
+
+    .details-list strong {
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+/* =========================================================
+   DISCOUNT
+========================================================= */
+
+.discount-input-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 72px;
+    gap: 8px;
+    align-items: end;
+}
+
+
+    .discount-input-row .form-group {
+        margin-top: 0;
+    }
+
+
+.apply-btn {
+    width: 72px;
+    min-height: 34px;
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   SHORTCUTS
+========================================================= */
+
+.shortcut-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 20px;
+    row-gap: 9px;
+}
+
+
+    .shortcut-grid div {
+        display: grid;
+        grid-template-columns: 58px minmax(0, 1fr);
+        align-items: center;
+        min-width: 0;
+    }
+
+
+    .shortcut-grid span {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--primary);
+    }
+
+
+    .shortcut-grid label {
+        font-size: 12px;
+        color: var(--text);
+        white-space: nowrap;
+    }
+
+
+/* =========================================================
+   BILL SUMMARY
+========================================================= */
+
+.summary-panel .panel-body {
+    padding: 14px 15px;
+}
+
+
+.summary-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 12px minmax(95px, auto);
+    align-items: center;
+    gap: 6px;
+    min-height: 34px;
+}
+
+
+    .summary-row span {
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+
+    .summary-row b {
+        text-align: center;
+        font-size: 12px;
+    }
+
+
+    .summary-row strong {
+        text-align: right;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+
+.net-amount-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 13px;
+    padding-top: 13px;
+    border-top: 1px solid var(--border);
+}
+
+
+    .net-amount-box div {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+
+    .net-amount-box span {
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 900;
+    }
+
+
+    .net-amount-box small {
+        color: #66758b;
+        font-size: 11px;
+    }
+
+
+    .net-amount-box strong {
+        color: var(--success);
+        font-size: 22px;
+        font-weight: 900;
+        white-space: nowrap;
+    }
+
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.payment-panel .panel-body {
+    padding: 12px 15px;
+}
+
+
+.payment-row {
+    display: grid;
+    grid-template-columns: minmax(100px, 1fr) 10px minmax(95px, 123px);
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 9px;
+}
+
+
+    .payment-row label {
+        font-size: 12px;
+        font-weight: 700;
+        min-width: 0;
+    }
+
+
+    .payment-row > span {
+        text-align: center;
+    }
+
+
+    .payment-row input {
+        text-align: right;
+        font-weight: 700;
+    }
+
+
+.payment-input-with-button {
+    display: flex;
+    min-width: 0;
+}
+
+
+    .payment-input-with-button input {
+        flex: 1;
+        min-width: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+
+.small-more-btn {
+    width: 29px;
+    flex: 0 0 29px;
+    border: 1px solid #ccd5e0;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    background: #f4f7fb;
+    color: var(--primary);
+    font-weight: 900;
+}
+
+
+    .small-more-btn:hover {
+        background: #e8eef6;
+    }
+
+
+.payment-divider {
+    border-top: 1px solid var(--border);
+    margin: 12px 0;
+}
+
+
+.total-paid-row,
+.balance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 30px;
+}
+
+
+    .total-paid-row span,
+    .balance-row span {
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+
+    .total-paid-row strong {
+        color: var(--success);
+        font-size: 18px;
+        white-space: nowrap;
+    }
+
+
+    .balance-row strong {
+        color: var(--danger);
+        font-size: 19px;
+        white-space: nowrap;
+    }
+
+
+        .balance-row strong.paid {
+            color: var(--success);
+        }
+
+
+/* =========================================================
+   MAIN ACTIONS
+========================================================= */
+
+.main-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.save-btn,
+.cancel-btn {
+    width: 100%;
+    min-height: 55px;
+    font-size: 16px;
+}
+
+
+    .save-btn span,
+    .cancel-btn span {
+        margin-right: 7px;
+    }
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translate(-50%, 100px);
+    min-width: 220px;
+    max-width: calc(100vw - 30px);
+    padding: 12px 18px;
+    border-radius: 5px;
+    background: #102a43;
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9999;
+}
+
+
+    .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+
+
+    .toast.success {
+        background: var(--success);
+    }
+
+
+    .toast.error {
+        background: var(--danger);
+    }
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1250px) {
+
+    .top-summary-grid {
+        grid-template-columns: minmax(130px, 0.7fr) minmax(130px, 0.7fr) minmax(130px, 0.7fr) minmax(280px, 1.8fr);
+    }
+
+
+    .main-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 320px);
+    }
+
+
+    .item-entry-grid {
+        grid-template-columns: minmax(220px, 2fr) minmax(110px, 0.8fr) minmax(125px, 1fr) 75px 110px;
+    }
+
+
+    .bottom-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+        .bottom-grid .panel:last-child {
+            grid-column: 1 / -1;
+        }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+
+    .right-sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+
+
+    .main-actions {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .item-entry-grid {
+        grid-template-columns: minmax(0, 2fr) minmax(110px, 1fr) minmax(130px, 1fr);
+        align-items: end;
+    }
+
+
+    .item-code-group {
+        grid-column: 1 / -1;
+    }
+
+
+    .qty-group {
+        grid-column: 2;
+    }
+
+
+    .add-button-wrapper {
+        grid-column: 3;
+    }
+}
+
+
+/* =========================================================
+   MOBILE LANDSCAPE / SMALL TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+
+    body {
+        font-size: 13px;
+    }
+
+
+    .billing-container {
+        padding: 7px;
+    }
+
+
+    .top-header {
+        min-height: 46px;
+        padding: 0 12px;
+    }
+
+
+    .brand-title {
+        font-size: 16px;
+    }
+
+
+    .top-summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+
+    .summary-card {
+        min-height: 92px;
+    }
+
+
+    .amount-card {
+        grid-column: 1 / -1;
+    }
+
+
+        .amount-card .bill-amount {
+            min-height: 66px;
+            font-size: clamp(32px, 9vw, 50px);
+        }
+
+
+    .summary-title {
+        font-size: 11px;
+        min-height: 30px;
+    }
+
+
+    .summary-value {
+        font-size: 32px;
+    }
+
+
+    .bill-number {
+        font-size: 36px;
+    }
+
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .item-entry-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .item-code-group {
+        grid-column: 1 / -1;
+    }
+
+
+    .qty-group {
+        grid-column: auto;
+    }
+
+
+    .add-button-wrapper {
+        grid-column: auto;
+    }
+
+
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+        .bottom-grid .panel:last-child {
+            grid-column: auto;
+        }
+
+
+    .right-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+
+    .main-actions {
+        grid-column: auto;
+        grid-template-columns: 1fr;
+    }
+
+
+    .table-footer {
+        align-items: stretch;
+    }
+
+
+    .footer-counter {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+
+    .action-buttons {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+
+        .action-buttons .btn {
+            flex: 1 1 auto;
+        }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .top-header {
+        min-height: 44px;
+    }
+
+
+    .header-status {
+        display: none;
+    }
+
+
+    .top-summary-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .amount-card {
+        grid-column: 1 / -1;
+    }
+
+
+    .summary-card {
+        min-height: 88px;
+    }
+
+
+    .summary-value {
+        font-size: 29px;
+    }
+
+
+    .bill-number {
+        font-size: 32px;
+    }
+
+
+    .bill-amount {
+        font-size: 34px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+
+    .two-column-form {
+        grid-template-columns: 1fr;
+    }
+
+
+    .customer-mini-info {
+        grid-template-columns: 1fr;
+    }
+
+
+        .customer-mini-info div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .customer-mini-info span {
+            margin: 0;
+        }
+
+
+    .item-entry-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .item-code-group,
+    .qty-group,
+    .add-button-wrapper {
+        grid-column: auto;
+    }
+
+
+    .table-footer {
+        flex-direction: column;
+    }
+
+
+    .footer-counter {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+
+    .counter-item {
+        flex: 1;
+        justify-content: space-between;
+    }
+
+
+    .action-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+
+        .action-buttons .btn {
+            width: 100%;
+        }
+
+
+    .discount-input-row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .apply-btn {
+        width: 100%;
+    }
+
+
+    .shortcut-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .payment-row {
+        grid-template-columns: minmax(90px, 1fr) 8px minmax(110px, 130px);
+    }
+
+
+    .save-btn,
+    .cancel-btn {
+        min-height: 50px;
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .billing-container {
+        padding: 5px;
+    }
+
+
+    .summary-value {
+        font-size: 25px;
+    }
+
+
+    .bill-number {
+        font-size: 28px;
+    }
+
+
+    .bill-amount {
+        font-size: 29px;
+    }
+
+
+    .payment-row {
+        grid-template-columns: minmax(80px, 1fr) 6px 105px;
+    }
+
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    body {
+        background: #fff;
+    }
+
+
+    .top-header {
+        display: none;
+    }
+
+
+    .billing-container {
+        padding: 0;
+        max-width: none;
+    }
+
+
+    .main-actions,
+    .action-buttons,
+    .toast {
+        display: none !important;
+    }
+
+
+    .panel,
+    .summary-card {
+        box-shadow: none;
+    }
+}

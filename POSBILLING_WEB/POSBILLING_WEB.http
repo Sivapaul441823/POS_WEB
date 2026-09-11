@@ -1,0 +1,6 @@
+@POSBILLING_WEB_HostAddress = http://localhost:5249
+
+GET {{POSBILLING_WEB_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
