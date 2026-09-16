@@ -29,7 +29,7 @@ namespace POSBILLING_WEB.Repositories
                 return new BillNoResponseDto    
                 {
                     Success = false,
-                    Message = "Insert Bill Sequence!", H
+                    Message = "Insert Bill Sequence!", 
                     CanBill = false
                 };
             }
