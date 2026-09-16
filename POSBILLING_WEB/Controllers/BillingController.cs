@@ -80,11 +80,7 @@ namespace POSBILLING_WEB.Controllers
             int branchId = Convert.ToInt32(branchIdString);
             int subUnitId = Convert.ToInt32(subUnitIdString);
 
-            var result = await _billingService.ValidateBarcodeAsync(
-                request.ItemCode.Trim(),
-                branchId,
-                subUnitId,
-                connection);
+            var result = await _billingService.ValidateBarcodeAsync(request.ItemCode.Trim(),branchId,subUnitId,connection);
 
             if (!result.Success)
             {

@@ -26,7 +26,7 @@ namespace POSBILLING_WEB.Repositories
 
             if (dt == null || dt.Rows.Count == 0)
             {
-                return new BillNoResponseDto 
+                return new BillNoResponseDto    
                 {
                     Success = false,
                     Message = "Insert Bill Sequence!",
