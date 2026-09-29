@@ -73,8 +73,7 @@ namespace POSBILLING_WEB.Data
         {
             DataSet dataSet = new DataSet();
 
-            string connectionString =
-                _configuration.GetConnectionString(connectionName);
+            string connectionString = _configuration.GetConnectionString(connectionName);
 
             using SqlConnection connection =
                 new SqlConnection(connectionString);

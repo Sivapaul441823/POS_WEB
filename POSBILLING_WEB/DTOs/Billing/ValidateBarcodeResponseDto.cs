@@ -16,5 +16,16 @@
         public string OfferType { get; set; } = "";
         public string OffType_BillVal { get; set; } = "";
         public int SectionId { get; set; }
+        public decimal DisPer { get; set; }
+        public decimal DiscountAmt { get; set; }
+        public bool CanAdd { get; set; }
+
+        public bool IsAlreadySold { get; set; }
+
+        public string BillNo { get; set; } = "";
+
+        public string BillDate { get; set; } = "";
+
+        public string ItemType { get; set; } = "";
     }
 }

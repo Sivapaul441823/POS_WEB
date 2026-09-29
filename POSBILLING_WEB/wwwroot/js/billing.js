@@ -23,6 +23,7 @@ const billingState = {
 
 };
 
+let currentItem = null;
 
 /* =========================================================
    SAMPLE ITEM MASTER
@@ -222,7 +223,6 @@ function bindEvents() {
     const ecNoElement = getElement("ecNo");
     const addButton = getElement("addItemBtn");
 
-    let currentItem = null;
     let barcodeTimer = null;
     let ecNoTimer = null;
 
@@ -270,7 +270,7 @@ function bindEvents() {
             barcodeTimer = setTimeout(
                 function () {
 
-                    validateBarcode(itemCode);
+                    loadItemDetails(itemCode);
 
                 },
                 100
@@ -543,79 +543,6 @@ function bindEvents() {
 
 }
 
-// =================================
-// validate Barcode
-// =================================
-
-
-async function validateBarcode(itemCode) {
-
-    try {
-
-        const response = await fetch(
-            "/api/Billing/validate-barcode",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    itemCode: itemCode
-                })
-            }
-        );
-
-
-        const data = await response.json();
-
-
-        // Barcode invalid
-        if (!response.ok || !data.isValid) {
-
-            currentItem = null;
-
-            showToast(data.message || "Invalid Barcode.","error");
-
-            itemCodeElement.focus();
-
-            itemCodeElement.select();
-
-            return;
-        }
-
-
-        // =================================
-        // Barcode VALID
-        // =================================
-
-        currentItem = data;
-
-
-        // EC No clear
-        ecNoElement.value = "";
-
-
-        // EC No focus
-        ecNoElement.focus();
-
-    }
-    catch (error) {
-
-        console.error(error);
-
-        currentItem = null;
-
-        showToast(
-            "Unable to validate barcode.",
-            "error"
-        );
-
-        itemCodeElement.focus();
-    }
-}
-
 /* =========================================================
    REPRINT
 ========================================================= */
@@ -686,37 +613,158 @@ async function reprintBill(billNo) {
     }
 }
 
-/* =========================================================
-   ADD ITEM
-========================================================= */
+// ============================================
+// Get Item Details
+// ============================================
+
+async function loadItemDetails(itemCode) {
+
+    const itemCodeElement =
+        getElement("itemCode");
+
+    try {
+
+        // ========================================
+        // Get Item Details API
+        // ========================================
+
+        const response = await fetch(
+            "/api/Billing/get-item-details",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                credentials: "include",
+
+                body: JSON.stringify({
+                    itemCode: itemCode
+                })
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Get Item Details Response:",
+            data
+        );
+
+        console.log(
+            "HTTP Status:",
+            response.status
+        );
+
+
+        // ========================================
+        // API Error
+        // ========================================
+
+        if (!response.ok) {
+
+            currentItem = null;
+
+            showToast(
+                data.message ||
+                "Unable to load item details.",
+                "error"
+            );
+
+            if (itemCodeElement) {
+                itemCodeElement.focus();
+                itemCodeElement.select();
+            }
+
+            return false;
+        }
+
+
+        // ========================================
+        // Store API Response
+        // ========================================
+
+        currentItem = data;
+
+
+        console.log(
+            "Current Item:",
+            currentItem
+        );
+
+
+        // ========================================
+        // Add Item To Grid
+        // ========================================
+
+        addItem();
+
+
+        return true;
+    }
+    catch (error) {
+
+        console.error(
+            "Get Item Details Error:",
+            error
+        );
+
+        currentItem = null;
+
+        showToast(
+            "Unable to load item details.",
+            "error"
+        );
+
+        if (itemCodeElement) {
+            itemCodeElement.focus();
+        }
+
+        return false;
+    }
+}
+
+
+// ============================================
+// Add Item
+// ============================================
 
 function addItem() {
 
     const itemCodeElement =
         getElement("itemCode");
 
-    //const qtyElement =
-    //    getElement("itemQty");
-
     const ecNoElement =
         getElement("ecNo");
 
-    //const offerTypeElement =
-    //    getElement("offerType");
 
+    // ========================================
+    // Validate Elements
+    // ========================================
 
-    if (!itemCodeElement || !ecNoElement) {
-
+    if (
+        !itemCodeElement ||
+        !ecNoElement
+    ) {
         return;
-
     }
 
 
-    const itemCode = itemCodeElement.value.trim();
+    // ========================================
+    // Get Item Code
+    // ========================================
+
+    const itemCode =
+        itemCodeElement.value.trim();
 
 
-    //const qty = parseInt(qtyElement.value,10);
-
+    // ========================================
+    // Item Code Required
+    // ========================================
 
     if (!itemCode) {
 
@@ -728,138 +776,397 @@ function addItem() {
         itemCodeElement.focus();
 
         return;
-
     }
 
 
-    //if (!Number.isFinite(qty) || qty <= 0) {
+    // ========================================
+    // Item Details Required
+    // ========================================
 
-    //    showToast(
-    //        "Enter a valid quantity.",
-    //        "error"
-    //    );
+    if (!currentItem) {
 
-    //    qtyElement.focus();
-
-    //    return;
-
-    //}
-
-
-    let masterItem = itemMaster[itemCode];
-
-
-    /*
-       If item doesn't exist in sample master,
-       create a safe demo item.
-       Later API can replace this.
-    */
-
-    if (!masterItem) {
-
-        masterItem = {
-
-            code: itemCode,
-
-            name: "NEW ITEM",
-
-            ecNo:
-                ecNoElement.value.trim() ||
-                "-",
-
-            mrp: 100,
-
-            hsn: "-",
-
-            gst: 18
-
-        };
-
-    }
-
-
-    const enteredEcNo = ecNoElement.value.trim();
-
-
-    //const offerType = offerTypeElement? offerTypeElement.value: "Normal";
-
-
-    /*
-       Check whether item already exists.
-    */
-
-    const existingIndex = billingState.items.findIndex(function (item)
-            {
-
-                return item.code ===
-                    masterItem.code;
-
-            }
+        showToast(
+            "Item details not found.",
+            "error"
         );
 
+        itemCodeElement.focus();
 
-    if (existingIndex >= 0) {
-
-        billingState.items[existingIndex].qty += qty;
-
-        billingState.selectedItemIndex =
-            existingIndex;
-
-    } else {
-
-        const newItem = {
-
-            code: masterItem.code,
-
-            name: masterItem.name,
-
-            ecNo: enteredEcNo ||masterItem.ecNo,
-
-            mrp: Number(masterItem.mrp) || 0,
-
-            //qty: qty,
-
-            discountPercent:
-                0,
-
-            discountValue:
-                0,
-
-            hsn:
-                masterItem.hsn || "-",
-
-            gst:
-                Number(masterItem.gst) || 0,
-
-            //offerType:
-            //    offerType
-
-        };
-
-
-        billingState.items.push(
-            newItem
-        );
-
-
-        billingState.selectedItemIndex =
-            billingState.items.length - 1;
-
+        return;
     }
 
+
+    // ========================================
+    // EC Number
+    // ========================================
+
+    const enteredEcNo =
+        ecNoElement.value.trim();
+
+
+    // ========================================
+    // Create Billing Item
+    // ========================================
+
+    const newItem = {
+
+        // ------------------------------------
+        // S.No
+        // ------------------------------------
+
+        sno:
+            billingState.items.length + 1,
+
+
+        // ------------------------------------
+        // Item Code
+        // ------------------------------------
+
+        itemCode:
+            currentItem.itemCode ||
+            itemCode,
+
+
+        // ------------------------------------
+        // Tag Code
+        // ------------------------------------
+
+        code:
+            currentItem.tagCode ||
+            itemCode,
+
+        tagCode:
+            currentItem.tagCode ||
+            itemCode,
+
+
+        // ------------------------------------
+        // Item Name
+        // ------------------------------------
+
+        name:
+            currentItem.productName ||
+            currentItem.ProductName ||
+            "-",
+
+
+        // ------------------------------------
+        // EC Number
+        // ------------------------------------
+
+        ecNo:
+            enteredEcNo ||
+            "-",
+
+
+        // ------------------------------------
+        // MRP
+        // ------------------------------------
+
+        mrp:
+            Number(
+                currentItem.mrp
+            ) || 0,
+
+
+        // ------------------------------------
+        // Quantity
+        // ------------------------------------
+
+        qty:
+            Number(
+                currentItem.qty
+            ) || 1,
+
+
+        // ------------------------------------
+        // Discount %
+        // ------------------------------------
+
+        discountPercent:
+            Number(
+                currentItem.disPer
+            ) || 0,
+
+
+        // ------------------------------------
+        // Discount Value
+        // ------------------------------------
+
+        discountValue:
+            Number(
+                currentItem.disVal
+            ) || 0,
+
+
+        // ------------------------------------
+        // Total Amount
+        // ------------------------------------
+
+        totalAmt:
+            Number(
+                currentItem.totalAmt
+            ) || 0,
+
+
+        // ------------------------------------
+        // HSN
+        // ------------------------------------
+
+        hsn:
+            currentItem.hsnCode ||
+            "-",
+
+
+        // ------------------------------------
+        // GST %
+        // ------------------------------------
+
+        gst:
+            Number(
+                currentItem.gstPer
+            ) || 0,
+
+
+        // ------------------------------------
+        // GST Amount
+        // ------------------------------------
+
+        gstAmount:
+            Number(
+                currentItem.gstAmt
+            ) || 0,
+
+
+        // ------------------------------------
+        // Old MRP
+        // ------------------------------------
+
+        oldMRP:
+            Number(
+                currentItem.oldMRP
+            ) || 0,
+
+
+        // ------------------------------------
+        // Old GST Amount
+        // ------------------------------------
+
+        oldGSTAmt:
+            Number(
+                currentItem.oldGSTAmt
+            ) || 0,
+
+
+        // ------------------------------------
+        // Image
+        // ------------------------------------
+
+        imageURL:
+            currentItem.imageURL ||
+            "",
+
+
+        // ------------------------------------
+        // Barcode Type
+        // ------------------------------------
+
+        barcodeType:
+            currentItem.barcodeType ||
+            "",
+
+
+        // ------------------------------------
+        // Stock Month
+        // ------------------------------------
+
+        stkMonth:
+            currentItem.stkMonth ||
+            "",
+
+
+        // ------------------------------------
+        // Stock Year
+        // ------------------------------------
+
+        stkYear:
+            currentItem.stkYear ||
+            "",
+
+
+        // ------------------------------------
+        // Offer Type
+        // ------------------------------------
+
+        offerType:
+            currentItem.offerType ||
+            "",
+
+
+        // ------------------------------------
+        // Offer Billing Value
+        // ------------------------------------
+
+        offType_BillVal:
+            currentItem.offType_BillVal ||
+            "",
+
+
+        // ------------------------------------
+        // Section
+        // ------------------------------------
+
+        sectionId:
+            Number(
+                currentItem.sectionId
+            ) || 0,
+
+
+        // ------------------------------------
+        // Branch
+        // ------------------------------------
+
+        branchId:
+            Number(
+                currentItem.branchId
+            ) || 0,
+
+
+        // ------------------------------------
+        // Sub Unit
+        // ------------------------------------
+
+        subUnitId:
+            Number(
+                currentItem.subUnitId
+            ) || 0,
+
+
+        // ------------------------------------
+        // Combo Set
+        // ------------------------------------
+
+        comboSet:
+            Number(
+                currentItem.comboSet
+            ) || 0,
+
+
+        // ------------------------------------
+        // Combo Offer
+        // ------------------------------------
+
+        comboOffer:
+            currentItem.comboOffer ||
+            "",
+
+
+        // ------------------------------------
+        // Combo Discount
+        // ------------------------------------
+
+        comboDiscount:
+            Number(
+                currentItem.comboDiscount
+            ) || 0,
+
+
+        // ------------------------------------
+        // Type
+        // ------------------------------------
+
+        type:
+            currentItem.type ||
+            "",
+
+
+        // ------------------------------------
+        // Scan Type
+        // ------------------------------------
+
+        scanType:
+            currentItem.barcodeType ||
+            "",
+
+
+        // ------------------------------------
+        // Scan Meter Quantity
+        // ------------------------------------
+
+        scanMtrQty:
+            Number(
+                currentItem.qty
+            ) || 1
+    };
+
+
+    console.log(
+        "New Billing Item:",
+        newItem
+    );
+
+    const isDuplicate = billingState.items.some(item => item.tagCode === newItem.tagCode);
+
+    if (isDuplicate) {
+
+        showToast("Already Scanned!", "error");
+
+        currentItem = null;
+
+        itemCodeElement.focus();
+
+        return;
+    }
+
+    // ========================================
+    // Add New Item
+    // ========================================
+
+    billingState.items.push(newItem);
+
+
+    // ========================================
+    // Select Added Item
+    // ========================================
+
+    billingState.selectedItemIndex =
+        billingState.items.length - 1;
+
+
+    // ========================================
+    // Clear Current Item
+    // ========================================
+
+    currentItem = null;
+
+
+    // ========================================
+    // Clear Entry
+    // ========================================
 
     clearItemEntry();
+
+
+    // ========================================
+    // Refresh Grid
+    // ========================================
 
     renderItems();
 
     updateUI();
 
+
+    // ========================================
+    // Success
+    // ========================================
+
     showToast(
         "Item added successfully.",
         "success"
     );
-
 }
+
+
 
 
 /* =========================================================
@@ -1099,41 +1406,29 @@ function renderItems() {
 
 function calculateItem(item) {
 
-    const gross =
-        Number(item.mrp || 0) *
-        Number(item.qty || 0);
+    const gross = Number(item.mrp || 0) * Number(item.qty || 0);
 
 
-    const discount =
-        gross *
-        (
-            Number(
-                item.discountPercent || 0
-            ) / 100
-        );
+    const discount = gross * (Number(item.discountPercent || 0) / 100);
 
 
-    const taxable =
-        Math.max(
-            0,
-            gross - discount
-        );
+    const taxable =Math.max(0,gross - discount);
 
 
     /*
        GST is calculated on taxable amount.
     */
 
-    const gstAmount =
-        taxable *
-        (
-            Number(item.gst || 0) / 100
-        );
+    //const gstAmount =
+    //    taxable *
+    //    (
+    //        Number(item.gst || 0) / 100
+    //    );
+
+    const gstAmount = Number(item.gstAmount || 0);
 
 
-    const total =
-        taxable +
-        gstAmount;
+    const total = taxable + gstAmount;
 
 
     return {
@@ -1159,32 +1454,46 @@ function calculateItem(item) {
 
 function removeItem(index) {
 
-    if (
-        index < 0 ||
-        index >= billingState.items.length
-    ) {
-
+    if (index < 0 || index >= billingState.items.length)
+    {
         return;
-
     }
 
 
-    billingState.items.splice(
-        index,
-        1
-    );
+    // ========================================
+    // Confirm Before Remove
+    // ========================================
+
+    const confirmRemove = confirm("Are you sure you want to remove this item?");
 
 
-    if (
-        billingState.items.length === 0
-    ) {
+    // ========================================
+    // Cancel
+    // ========================================
+
+    if (!confirmRemove) {
+        return;
+    }
+
+
+    // ========================================
+    // Remove Item
+    // ========================================
+
+    billingState.items.splice(index,1);
+
+
+    // ========================================
+    // Update Selected Index
+    // ========================================
+
+    if (billingState.items.length === 0) {
 
         billingState.selectedItemIndex = -1;
 
-    } else if (
-        billingState.selectedItemIndex >=
-        billingState.items.length
-    ) {
+    }
+    else if (billingState.selectedItemIndex >= billingState.items.length)
+    {
 
         billingState.selectedItemIndex =
             billingState.items.length - 1;
@@ -1192,16 +1501,20 @@ function removeItem(index) {
     }
 
 
+    // ========================================
+    // Refresh UI
+    // ========================================
+
     renderItems();
 
     updateUI();
 
 
-    showToast(
-        "Item removed.",
-        "success"
-    );
+    // ========================================
+    // Success Message
+    // ========================================
 
+    showToast("Item removed.","success");
 }
 
 
@@ -1211,9 +1524,7 @@ function removeItem(index) {
 
 function removeSelectedItem() {
 
-    if (
-        billingState.selectedItemIndex < 0
-    ) {
+    if (billingState.selectedItemIndex < 0) {
 
         showToast(
             "Select an item first.",

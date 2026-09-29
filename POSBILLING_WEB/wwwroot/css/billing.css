@@ -538,10 +538,16 @@ select {
 .table-wrapper {
     width: 100%;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
     scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
 }
 
+#billingTable {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+}
 
 table {
     width: 100%;

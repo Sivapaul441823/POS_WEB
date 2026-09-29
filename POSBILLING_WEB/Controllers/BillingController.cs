@@ -48,48 +48,7 @@ namespace POSBILLING_WEB.Controllers
             return Ok(result);
 
         }
-        [HttpPost("validate-barcode")]
-        public async Task<IActionResult> ValidateBarcode([FromBody] ValidateBarcodeRequestDto request)
-        {
-            var branchIdString = HttpContext.Session.GetString("BranchId");
-
-            var subUnitIdString = HttpContext.Session.GetString("SubUnitId");
-
-            var connection = HttpContext.Session.GetString("ConnectionName");
-
-            if (string.IsNullOrEmpty(branchIdString))
-            {
-                return Unauthorized("BranchId not found in session.");
-            }
-
-            if (string.IsNullOrEmpty(subUnitIdString))
-            {
-                return Unauthorized("SubUnitId not found in session.");
-            }
-
-            if (string.IsNullOrEmpty(connection))
-            {
-                return Unauthorized("ConnectionName not found in session.");
-            }
-
-            if (string.IsNullOrWhiteSpace(request.ItemCode))
-            {
-                return BadRequest("Item Code is required.");
-            }
-
-            int branchId = Convert.ToInt32(branchIdString);
-            int subUnitId = Convert.ToInt32(subUnitIdString);
-
-            var result = await _billingService.ValidateBarcodeAsync(request.ItemCode.Trim(),branchId,subUnitId,connection);
-
-            if (!result.Success)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result);
-        }
-
+       
         [HttpPost("RePrint")]
         public async Task<IActionResult> RePrint([FromBody] RePrintRequestDto request)
         {
@@ -170,5 +129,163 @@ namespace POSBILLING_WEB.Controllers
 
             return list;
         }
+
+        //[HttpPost("validate-barcode")]
+        //public async Task<IActionResult> ValidateBarcode([FromBody] ValidateBarcodeRequestDto request)
+        //{
+        //    // 1. Validate Request
+        //    if (request == null ||
+        //        string.IsNullOrWhiteSpace(request.ItemCode))
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            success = false,
+        //            message = "Barcode is required"
+        //        });
+        //    }
+
+        //    // 2. Get BranchId from Session
+        //    var branchIdString = HttpContext.Session.GetString("BranchId");
+
+        //    // 3. Get SubUnitId from Session
+        //    var subUnitIdString = HttpContext.Session.GetString("SubUnitId");
+
+        //    // 4. Get ConnectionName from Session
+        //    var connection = HttpContext.Session.GetString("ConnectionName");
+
+        //    // 5. Validate BranchId
+        //    if (!int.TryParse(branchIdString,out int branchId))
+        //    {
+        //        return Unauthorized(new
+        //        {
+        //            success = false,
+        //            message = "BranchId not found in session"
+        //        });
+        //    }
+
+        //    // 6. Validate SubUnitId
+        //    if (!int.TryParse(subUnitIdString,out int subUnitId))
+        //    {
+        //        return Unauthorized(new
+        //        {
+        //            success = false,
+        //            message = "SubUnitId not found in session"
+        //        });
+        //    }
+
+        //    // 7. Validate Connection
+        //    if (string.IsNullOrWhiteSpace(connection))
+        //    {
+        //        return Unauthorized(new
+        //        {
+        //            success = false,
+        //            message = "ConnectionName not found in session"
+        //        });
+        //    }
+
+        //    // 8. Call Service
+        //    var result = await _billingService.ValidateBarcodeAsync(request.ItemCode.Trim(),branchId,subUnitId,connection);
+
+        //    // 9. Return Response
+        //    return Ok(result);
+        //}
+        [HttpPost("get-item-details")]
+        public async Task<IActionResult> GetItemDetails([FromBody] GetItemDetailsRequestDto  request)
+        {
+            if (string.IsNullOrWhiteSpace(request.ItemCode))
+            {
+                return BadRequest(
+                    new
+                    {
+                        success = false,
+                        message = "Enter or scan item code."
+                    });
+            }
+
+
+            // ========================================
+            // Branch
+            // ========================================
+
+            var branchIdString = HttpContext.Session.GetString("BranchId");
+
+            if (string.IsNullOrEmpty(branchIdString))
+            {
+                return Unauthorized(
+                    new
+                    {
+                        success = false,
+                        message = "BranchId not found in session."
+                    });
+            }
+
+            int branchId =
+                Convert.ToInt32(branchIdString);
+
+
+            // ========================================
+            // Sub Unit
+            // ========================================
+
+            var subUnitIdString =
+                HttpContext.Session.GetString("SubUnitId");
+
+            int subUnitId = 0;
+
+            if (!string.IsNullOrEmpty(subUnitIdString))
+            {
+                subUnitId =
+                    Convert.ToInt32(subUnitIdString);
+            }
+
+
+            // ========================================
+            // Connection
+            // ========================================
+
+            var connection = HttpContext.Session.GetString("ConnectionName");
+
+            if (string.IsNullOrEmpty(connection))
+            {
+                return Unauthorized(
+                    new
+                    {
+                        success = false,
+                        message =
+                            "ConnectionName not found in session."
+                    });
+            }
+
+
+            // ========================================
+            // Get Item Details
+            // ========================================
+
+            var result =
+                await _billingService.GetItemDetailsAsync(request.ItemCode.Trim(),branchId,subUnitId,connection);
+
+
+            // ========================================
+            // Item Not Found
+            // ========================================
+
+            if (result == null)
+            {
+                return NotFound(
+                    new
+                    {
+                        success = false,
+                        message = "Stock Not Found!"
+                    });
+            }
+
+
+            // ========================================
+            // Success
+            // ========================================
+
+            return Ok(result);
+        }
+
     }
 }
