@@ -102,135 +102,6 @@
 
     });
 
-
-    /* =====================================================
-       EXISTING BACKEND VALIDATION
-    ===================================================== */
-
-    //async function validateEmployee(ecValue) {
-
-    //    verifyMessage.classList.remove("hidden");
-
-    //    errorMessage.classList.add("hidden");
-
-    //    inputStatus.textContent = "●";
-
-
-    //    try {
-
-    //        /*
-    //         * YOUR EXISTING BACKEND API
-    //         *
-    //         * Change URL according to your API.
-    //         */
-
-    //        const response = await fetch(
-    //            "/api/Auth/EmployeeLogin",
-    //            {
-    //                method: "POST",
-
-    //                headers: {
-    //                    "Content-Type":
-    //                        "application/json"
-    //                },
-
-    //                body: JSON.stringify({
-    //                    UserName: ecValue
-    //                })
-    //            }
-    //        );
-
-
-    //        const result = await response.json();
-
-
-    //        verifyMessage.classList.add("hidden");
-
-
-    //        /* =============================================
-    //           VALID EMPLOYEE
-    //        ============================================= */
-
-    //        if (response.ok && result.success === true)
-    //        {
-
-    //            inputStatus.textContent = "✓";
-
-    //            inputStatus.classList.add("success");
-
-
-    //            /*
-    //             * Direct Login
-    //             *
-    //             * If backend already creates
-    //             * authentication/session/token,
-    //             * redirect to billing.
-    //             */
-    //            // Check authorization
-    //            await openBilling();
-
-    //            return;
-    //        }
-
-
-    //        /* =============================================
-    //           INVALID EMPLOYEE
-    //        ============================================= */
-
-    //        showInvalidEmployee();
-
-    //    }
-    //    catch (error) {
-
-    //        alert("Employee Login Error:",error);
-
-    //        verifyMessage.classList.add("hidden");
-
-    //        showInvalidEmployee();
-
-    //    }
-
-    //}
-    //async function openBilling() {
-
-    //    try {
-
-    //        const response = await fetch("/api/Billing/Initialize",
-    //            {
-    //                method: "GET",
-    //                credentials: "include"
-    //            }
-    //        );
-
-    //        if (response.status === 401) {
-
-    //            showInvalidEmployee();
-
-    //            return;
-    //        }
-
-    //        if (response.status === 403) {
-
-    //            alert("You are not authorized to access Billing.");
-
-    //            return;
-    //        }
-
-    //        if (!response.ok) {
-
-    //            throw new Error("Authorization failed");
-    //        }
-
-    //        // Only now open billing
-    //        window.location.href ="billing.html";
-    //    }
-    //    catch (error) {
-
-    //        alert("Billing authorization error: " + error);
-    //    }
-    //}
-
-
     /* =========================================================
    MESSAGE HELPERS
 ========================================================= */
@@ -277,86 +148,6 @@
     }
 
 
-    /* =========================================================
-       EMPLOYEE LOGIN
-    ========================================================= */
-
-    //async function validateEmployee(ecValue)
-    //{
-
-    //    showVerifyingMessage("Verifying Employee...");
-
-    //    try {
-
-    //        const response = await fetch("/api/Auth/EmployeeLogin",
-    //            {
-    //                method: "POST",
-
-    //                headers: {
-    //                    "Content-Type": "application/json"
-    //                },
-
-    //                credentials: "include",
-
-    //                body: JSON.stringify({UserName: ecValue})
-    //            }
-    //        );
-
-
-    //        const result = await response.json();
-    //        //const result = await response.text();
-
-
-    //        /* =============================================
-    //           VALID EMPLOYEE
-    //        ============================================= */
-
-    //        if (response.ok && result.success === true) {
-
-    //            showSuccessMessage("Employee verified successfully.");
-
-    //            return;
-    //        }
-
-
-    //        /* =============================================
-    //           INVALID EMPLOYEE
-    //        ============================================= */
-
-    //        if (response.status === 401) {
-
-    //            showErrorMessage( result.message || "Invalid Employee. Please contact Admin.");
-
-    //            return;
-    //        }
-
-
-    //        /* =============================================
-    //           BAD REQUEST
-    //        ============================================= */
-
-    //        if (response.status === 400) {
-
-    //            showErrorMessage(result.message || "Please enter a valid EC No.");
-
-    //            return;
-    //        }
-
-
-    //        /* =============================================
-    //           OTHER ERROR
-    //        ============================================= */
-
-    //        showErrorMessage(result.message || "Unable to verify Employee. Please try again.");
-
-    //    }
-    //    catch (error) {
-    //        alert("Employee Login Error: " + error.message);
-
-    //        showErrorMessage("Unable to connect to server. Please try again.");
-    //    }
-    //}
-
     async function validateEmployee(ecValue) {
 
         showVerifyingMessage("Verifying Employee...");
@@ -389,6 +180,9 @@
             ============================================= */
 
             if (response.ok && result.success === true) {
+
+                sessionStorage.setItem("Branch", result.branch || "");
+                sessionStorage.setItem("UserName", result.userName || "");
 
                 showSuccessMessage( "Employee verified successfully.");
 

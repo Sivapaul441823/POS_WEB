@@ -26,25 +26,16 @@ namespace POSBILLING_WEB.Services
         {
             return await _billingRepository.GetPrintDetailsAsync(billNo, branchId, subUnitId);
         }
-
-        //// Validate Barcode
-        //public async Task<ValidateBarcodeResponseDto> ValidateBarcodeAsync(string itemCode,int branchId,int subUnitId,string connection)
-        //{
-        //    return await _billingRepository.ValidateBarcodeAsync(itemCode,branchId,subUnitId,connection);
-        //}
-
+        // Get Barcode Data
         public async Task<GetItemDetailsResponseDto?> GetItemDetailsAsync(string itemCode,int branchId,int subUnitId,string connection)
         {
             return await _billingRepository.GetItemDetailsAsync(itemCode,branchId,subUnitId,connection);
         }
 
-
-        //// Get Barcode
-        //public async Task<ValidateBarcodeResponseDto> ValidateBarcodeAsync(string itemCode,int branchId,int subUnitId,string connection)
-        //{
-        //    return await _billingRepository.ValidateBarcodeAsync(itemCode,branchId,subUnitId,connection);
-        //}
-
+        public async Task<EmployeeEcNoResponseDto?> ValidateECNoAsync(string ecNo, int branchId, int subUnitId, string connection)
+        {
+            return await _billingRepository.ValidateECNoAsync(ecNo, branchId, subUnitId, connection);
+        }
 
     }
 }

@@ -15,9 +15,6 @@ namespace POSBILLING_WEB.Repositories
             _dbHelper = dbHelper;
 
         }
-       
-
-
         public async Task<BillNoResponseDto> LoadBillNoAsync(int branchId,string connection)
         {
             // 1. Get Bill Sequence
@@ -118,172 +115,6 @@ namespace POSBILLING_WEB.Repositories
                 CanBill = true
             };
         }
-        //public async Task<ValidateBarcodeResponseDto> ValidateBarcodeAsync(string itemCode,int branchId,int subUnitId,string connection)
-        //{
-        //    if (string.IsNullOrWhiteSpace(itemCode))
-        //    {
-        //        return new ValidateBarcodeResponseDto
-        //        {
-        //            Success = false,
-        //            Message = "Scan Item Code",
-        //            CanAdd = false
-        //        };
-        //    }
-
-        //    itemCode = itemCode.Trim();
-
-        //    // -----------------------------------------
-        //    // 1. BillingTag Check
-        //    // -----------------------------------------
-
-        //    DataTable dtBillTag = await _billingRepository.GetBillingTagAsync(itemCode,connection);
-
-        //    if (dtBillTag != null &&
-        //        dtBillTag.Rows.Count > 0)
-        //    {
-        //        DataRow row = dtBillTag.Rows[0];
-
-        //        string tagCode =
-        //            row["TagCode"]?.ToString() ?? "";
-
-        //        string imageURL =
-        //            row["ImageURL"]?.ToString() ?? "";
-
-        //        decimal mrp =
-        //            row["MRP"] == DBNull.Value
-        //                ? 0
-        //                : Convert.ToDecimal(row["MRP"]);
-
-        //        string displayName =
-        //            row["DisplayName"]?.ToString() ?? "";
-
-        //        string barcodeType =
-        //            row["BarcodeType"]?.ToString() ?? "";
-
-        //        decimal qty =
-        //            row["Qty"] == DBNull.Value
-        //                ? 0
-        //                : Convert.ToDecimal(row["Qty"]);
-
-        //        string stkMonth =
-        //            row["StkMonth"]?.ToString() ?? "";
-
-        //        string stkYear =
-        //            row["StkYear"]?.ToString() ?? "";
-
-        //        string offerType =
-        //            row["OfferType"]?.ToString() ?? "";
-
-        //        string offTypeBillVal =
-        //            row["OffType_BillVal"]?.ToString() ?? "";
-
-        //        int sectionId =
-        //            row["SectionId"] == DBNull.Value
-        //                ? 0
-        //                : Convert.ToInt32(row["SectionId"]);
-
-        //        return new ValidateBarcodeResponseDto
-        //        {
-        //            Success = true,
-        //            Message = "Barcode validated successfully",
-
-        //            TagCode = itemCode,
-        //            //TagCode = tagCode,
-        //            ImageURL = imageURL,
-        //            MRP = mrp,
-        //            DisplayName = displayName,
-        //            BarcodeType = barcodeType,
-        //            Qty = qty,
-        //            StkMonth = stkMonth,
-        //            StkYear = stkYear,
-        //            OfferType = offerType,
-        //            OffType_BillVal = offTypeBillVal,
-        //            SectionId = sectionId,
-
-        //            CanAdd = true
-        //        };
-        //    }
-
-        //    // -----------------------------------------
-        //    // 2. BillingTag Not Found
-        //    //    SP_ItemCodeCheck
-        //    // -----------------------------------------
-
-        //    DataTable dtItemCheck = await _billingRepository.CheckItemCodeAsync(itemCode, connection);
-
-        //    if (dtItemCheck != null &&
-        //        dtItemCheck.Rows.Count > 0)
-        //    {
-        //        DataRow row = dtItemCheck.Rows[0];
-
-        //        string type =
-        //            row["Type"]?.ToString() ?? "";
-
-        //        string billNo =
-        //            row["GroupBillNo"]?.ToString() ?? "";
-
-        //        string billDate =
-        //            row["BillDate"]?.ToString() ?? "";
-
-        //        // -----------------------------------------
-        //        // Type = C
-        //        // -----------------------------------------
-
-        //        if (type == "C")
-        //        {
-        //            return new ValidateBarcodeResponseDto
-        //            {
-        //                Success = false,
-        //                Message =
-        //                    $"Bill No - {billNo} BillDate - {billDate}",
-
-        //                TagCode = itemCode,
-        //                ItemType = type,
-
-        //                BillNo = billNo,
-        //                BillDate = billDate,
-
-        //                CanAdd = false
-        //            };
-        //        }
-
-        //        // -----------------------------------------
-        //        // Already Sold
-        //        // -----------------------------------------
-
-        //        return new ValidateBarcodeResponseDto
-        //        {
-        //            Success = false,
-
-        //            Message =
-        //                $"Item already Sold - Bill No {billNo}, BillDate - {billDate}",
-
-        //            TagCode = itemCode,
-        //            ItemType = type,
-
-        //            BillNo = billNo,
-        //            BillDate = billDate,
-
-        //            IsAlreadySold = true,
-        //            CanAdd = false
-        //        };
-        //    }
-
-        //    // -----------------------------------------
-        //    // 3. Nil Stock
-        //    // -----------------------------------------
-
-        //    return new ValidateBarcodeResponseDto
-        //    {
-        //        Success = false,
-        //        Message = "Nil Stock!",
-
-        //        TagCode = itemCode  ,
-
-        //        CanAdd = false
-        //    };
-        //}
-
         public async Task<DataSet> GetPrintDetailsAsync(string billNo,int branchId,int subUnitId)
         {
             var parameters = new[]
@@ -295,220 +126,6 @@ namespace POSBILLING_WEB.Repositories
 
             return await _dbHelper.ExecuteSPDataSetAsync("TNV","Sp_Bill_Print",parameters);
         }
-
-        // Validate Barcode
-        //public async Task<ValidateBarcodeResponseDto> ValidateBarcodeAsync(string itemCode,int branchId,int subUnitId,string connection)
-        //{
-        //    // -----------------------------------------
-        //    // 1. Validate Item Code
-        //    // -----------------------------------------
-
-        //    if (string.IsNullOrWhiteSpace(itemCode))
-        //    {
-        //        return new ValidateBarcodeResponseDto
-        //        {
-        //            Success = false,
-        //            Message = "Scan Item Code",
-        //            CanAdd = false
-        //        };
-        //    }
-
-        //    itemCode = itemCode.Trim();
-
-
-        //    // -----------------------------------------
-        //    // 2. BillingTag Check
-        //    // -----------------------------------------
-
-        //    DataTable dtBillTag = await GetBillingTagAsync(itemCode,connection);
-
-        //    if (dtBillTag != null &&
-        //        dtBillTag.Rows.Count > 0)
-        //    {
-        //        DataRow row = dtBillTag.Rows[0];
-
-        //        string tagCode =
-        //            row["TagCode"]?.ToString() ?? "";
-
-        //        string imageURL =
-        //            row["ImageURL"]?.ToString() ?? "";
-
-        //        decimal mrp =
-        //            row["MRP"] == DBNull.Value
-        //                ? 0
-        //                : Convert.ToDecimal(row["MRP"]);
-
-        //        string displayName =
-        //            row["DisplayName"]?.ToString() ?? "";
-
-        //        string barcodeType =
-        //            row["BarcodeType"]?.ToString() ?? "";
-
-        //        decimal qty = row["Qty"] == DBNull.Value ? 0 : Convert.ToDecimal(row["Qty"]);
-        //        decimal DisPer = row["DisPer"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DisPer"]);
-        //        decimal DiscountAmt = row["DiscountAmt"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DiscountAmt"]);
-        //        string stkMonth =
-        //            row["StkMonth"]?.ToString() ?? "";
-
-        //        string stkYear =
-        //            row["StkYear"]?.ToString() ?? "";
-
-        //        string offerType =
-        //            row["OfferType"]?.ToString() ?? "";
-
-        //        string offTypeBillVal =
-        //            row["OffType_BillVal"]?.ToString() ?? "";
-
-        //        int sectionId =
-        //            row["SectionId"] == DBNull.Value
-        //                ? 0
-        //                : Convert.ToInt32(row["SectionId"]);
-
-
-        //        // -----------------------------------------
-        //        // BillingTag Found
-        //        // -----------------------------------------
-
-        //        return new ValidateBarcodeResponseDto
-        //        {
-        //            Success = true,
-
-        //            Message =
-        //                "Barcode validated successfully",
-
-        //            TagCode = itemCode,
-
-        //            ImageURL = imageURL,
-
-        //            MRP = mrp,
-
-        //            DisplayName = displayName,
-
-        //            BarcodeType = barcodeType,
-
-        //            Qty = qty,
-
-        //            DisPer = DisPer,
-
-        //            DiscountAmt = DiscountAmt,
-
-        //            StkMonth = stkMonth,
-
-        //            StkYear = stkYear,
-
-        //            OfferType = offerType,
-
-        //            OffType_BillVal = offTypeBillVal,
-
-        //            SectionId = sectionId,
-
-        //            CanAdd = true
-        //        };
-        //    }
-
-
-        //    // -----------------------------------------
-        //    // 3. BillingTag Not Found
-        //    //    SP_ItemCodeCheck
-        //    // -----------------------------------------
-
-        //    DataTable dtItemCheck = await CheckItemCodeAsync(itemCode,connection);
-
-        //    if (dtItemCheck != null &&
-        //        dtItemCheck.Rows.Count > 0)
-        //    {
-        //        DataRow row = dtItemCheck.Rows[0];
-
-        //        string type =
-        //            row["Type"]?.ToString() ?? "";
-
-        //        string billNo =
-        //            row["GroupBillNo"]?.ToString() ?? "";
-
-        //        string billDate =
-        //            row["BillDate"]?.ToString() ?? "";
-
-
-        //        // -----------------------------------------
-        //        // Type = C
-        //        // -----------------------------------------
-
-        //        if (type == "C")
-        //        {
-        //            return new ValidateBarcodeResponseDto
-        //            {
-        //                Success = false,
-
-        //                Message =
-        //                    $"Bill No - {billNo} BillDate - {billDate}",
-
-        //                TagCode = itemCode,
-
-        //                ItemType = type,
-
-        //                BillNo = billNo,
-
-        //                BillDate = billDate,
-
-        //                CanAdd = false
-        //            };
-        //        }
-
-
-        //        // -----------------------------------------
-        //        // Already Sold
-        //        // -----------------------------------------
-
-        //        return new ValidateBarcodeResponseDto
-        //        {
-        //            Success = false,
-
-        //            Message =
-        //                $"Item already Sold - Bill No {billNo}, BillDate - {billDate}",
-
-        //            TagCode = itemCode,
-
-        //            ItemType = type,
-
-        //            BillNo = billNo,
-
-        //            BillDate = billDate,
-
-        //            IsAlreadySold = true,
-
-        //            CanAdd = false
-        //        };
-        //    }
-
-
-        //    // -----------------------------------------
-        //    // 4. Nil Stock
-        //    // -----------------------------------------
-
-        //    return new ValidateBarcodeResponseDto
-        //    {
-        //        Success = false,
-
-        //        Message = "Nil Stock!",
-
-        //        TagCode = itemCode,
-
-        //        CanAdd = false
-        //    };
-        //}
-        //public async Task<DataTable> GetItemDetailsAsync(string itemCode,int branchId,int subUnitId,string connection)
-        //{
-        //    var parameters = new[]
-        //    {
-        //        new SqlParameter("@Case", "Detail"),
-        //        new SqlParameter("@ItemCode", itemCode),
-        //        new SqlParameter("@BranchId", branchId),
-        //        new SqlParameter("@SubunitID", subUnitId)
-        //    };
-
-        //    return await _dbHelper.ExecuteSPAsync(connection,"Sp_Billing_GetDetails",parameters);
-        //}
-
         public async Task<GetItemDetailsResponseDto?> GetItemDetailsAsync(string itemCode,int branchId,int subUnitId,string connection)
         {
             var parameters = new[]
@@ -615,6 +232,36 @@ namespace POSBILLING_WEB.Repositories
             };
         }
 
+        public async Task<EmployeeEcNoResponseDto?> ValidateECNoAsync(string ecNo, int branchId, int subUnitId, string connection)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Case", "EcNo"),
+                new SqlParameter("@ECNo", ecNo ?? string.Empty),
+                new SqlParameter("@BranchId", branchId),
+                new SqlParameter("@SubunitID", subUnitId)
+            };
+
+
+            DataTable dt = await _dbHelper.ExecuteSPAsync(connection,"Sp_NTBilling",parameters);
+
+
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                return null;
+            }
+
+
+            DataRow row = dt.Rows[0];
+
+
+            return new EmployeeEcNoResponseDto
+            {
+                BiometricCode = GetString(row, "BiometricCode"),
+
+                Employee = GetString(row, "Employee")
+            };
+        }
 
         // ========================================
         // Helper Methods
@@ -651,12 +298,5 @@ namespace POSBILLING_WEB.Repositories
 
             return Convert.ToDecimal(row[column]);
         }
-        //public async Task<DataTable> CheckItemCodeAsync(string itemCode,string connection)
-        //{
-        //    var parameters = new[] { new SqlParameter("@ItemCode", itemCode) };
-
-        //    return await _dbHelper.ExecuteSPAsync(connection,"SP_ItemCodeCheck",parameters);
-        //}
-
     }
 }

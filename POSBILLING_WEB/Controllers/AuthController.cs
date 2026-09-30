@@ -62,12 +62,18 @@ namespace POSBILLINGWEB.Controllers
 
             HttpContext.Session.SetString("SubUnitId", result.BranchId.ToString());
 
+            HttpContext.Session.SetString("Branch", result.Branch.ToString());
+
+            HttpContext.Session.SetString("UserName", result.UserName.ToString());
+
             HttpContext.Session.SetString("ConnectionName","TNV");
 
             return Ok(new
             {
                 success = true,
-                message = "Employee verified successfully."
+                message = "Employee verified successfully.",
+                branch = result.Branch.ToString(),
+                UserName = result.UserName.ToString()
             });
         }
 

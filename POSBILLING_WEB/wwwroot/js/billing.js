@@ -104,6 +104,25 @@ function initializeBilling() {
 
 async function loadBillNumber() {
 
+    const branchName = document.getElementById("branchName");
+
+    if (branchName)
+    {
+
+        branchName.textContent = sessionStorage.getItem("Branch") || "";
+    }
+
+    
+
+    const billingTitle = document.getElementById("billingTitle");
+
+    if (billingTitle)
+    {
+        const username = sessionStorage.getItem("UserName") || "";
+
+        billingTitle.textContent = username ? `BILLING - ${username}` : "BILLING";
+    }
+
     const billNumberElement = getElement("billNumber");
 
     if (!billNumberElement)
@@ -260,8 +279,7 @@ function bindEvents() {
 
             clearTimeout(barcodeTimer);
 
-            const itemCode =
-                itemCodeElement.value.trim();
+            const itemCode = itemCodeElement.value.trim();
 
             if (!itemCode) {
                 return;
@@ -277,6 +295,38 @@ function bindEvents() {
             );
         });
     }
+
+    if (ecNoElement) {
+
+    ecNoElement.addEventListener(
+        "input",
+        function () {
+
+            clearTimeout(ecNoTimer);
+
+            const ecNo = ecNoElement.value.trim();
+
+
+            if (!ecNo) {
+                return;
+            }
+
+
+            ecNoTimer = setTimeout(
+                async function () {
+
+                    const itemCodeElement = getElement("itemCode");
+                    const itemCode = itemCodeElement.value.trim();
+
+                    await validateECNo(ecNo, itemCode);
+
+                },
+                100
+            );
+
+        }
+    );
+}
 
     const qty = getElement("itemQty");
 
@@ -315,10 +365,7 @@ function bindEvents() {
         getElement("qtyPlusBtn");
 
     if (qtyPlus) {
-        qtyPlus.addEventListener(
-            "click",
-            increaseSelectedQty
-        );
+        qtyPlus.addEventListener( "click", increaseSelectedQty );
     }
 
 
@@ -326,21 +373,14 @@ function bindEvents() {
         getElement("qtyMinusBtn");
 
     if (qtyMinus) {
-        qtyMinus.addEventListener(
-            "click",
-            decreaseSelectedQty
-        );
+        qtyMinus.addEventListener( "click", decreaseSelectedQty );
     }
 
 
-    const discountButton =
-        getElement("discountBtn");
+    const discountButton = getElement("discountBtn");
 
     if (discountButton) {
-        discountButton.addEventListener(
-            "click",
-            focusDiscount
-        );
+        discountButton.addEventListener( "click", focusDiscount );
     }
 
 
@@ -426,8 +466,7 @@ function bindEvents() {
     }
 
 
-    const barcodeButton =
-        getElement("barcodeButton");
+    const barcodeButton = getElement("barcodeButton");
 
     if (barcodeButton) {
 
@@ -437,10 +476,7 @@ function bindEvents() {
 
                 focusItemCode();
 
-                showToast(
-                    "Barcode scanner ready",
-                    "success"
-                );
+                showToast("Barcode scanner ready","success");
 
             }
         );
@@ -461,15 +497,11 @@ function bindEvents() {
 
     paymentFields.forEach(function (id) {
 
-        const element =
-            getElement(id);
+        const element = getElement(id);
 
         if (element) {
 
-            element.addEventListener(
-                "input",
-                updatePayment
-            );
+            element.addEventListener("input",updatePayment);
 
         }
 
@@ -609,7 +641,83 @@ async function reprintBill(billNo) {
 
         console.error(error);
 
-        alert("Unable to connect to server");
+        alert("Unable to connect to server " + error +"" );
+    }
+}
+
+// ============================================
+// Get Employee Details
+// ============================================
+
+async function validateECNo(ecNo,itemCode) {
+
+    try {
+
+        const response = await fetch(
+            "/api/Billing/validate-ecno",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    ecNo: ecNo
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        const ecNoElement = getElement("ecNo");
+
+        const employeeNameLabel = getElement("employeeName");
+
+
+        if (!response.ok) {
+
+            // Clear Employee Name
+            if (employeeNameLabel)
+            {
+                employeeNameLabel.value = "";
+            }
+
+            // Clear EC No and Focus
+            if (ecNoElement)
+            { 
+                ecNoElement.value = "";
+                ecNoElement.focus();
+            }
+
+            showToast( data.message || "Invalid EC No.", "error" );
+
+            return false;
+        }
+
+
+        // ========================================
+        // Set Employee Name
+        // ========================================
+
+        if (employeeNameLabel) {
+
+            employeeNameLabel.value =
+                data.data.employee;
+        }
+
+        console.log("Employee:", data.data.employee);
+
+        loadItemDetails(itemCode)
+        return true;
+
+    }
+    catch (error) {
+
+        console.error("EC No Validation Error:",error);
+
+        showToast("Unable to validate EC No.","error");
+
+        return false;
     }
 }
 
@@ -619,8 +727,56 @@ async function reprintBill(billNo) {
 
 async function loadItemDetails(itemCode) {
 
-    const itemCodeElement =
-        getElement("itemCode");
+    const itemCodeElement = getElement("itemCode");
+    const ecNoElement = getElement("ecNo");
+
+    // ========================================
+    // Get EC No
+    // ========================================
+
+    const ecNo = ecNoElement?.value?.trim() || "";
+
+
+    // ========================================
+    // EC No Mandatory Check
+    // ========================================
+
+    if (!ecNo) {
+
+        showToast("Enter EC No.","error");
+
+        ecNoElement?.focus();
+
+        return false;
+    }
+
+    // ========================================
+    // Item Code Mandatory Check
+    // ========================================
+
+    if (!itemCode || !String(itemCode).trim()) {
+
+        showToast("Enter or scan Item Code.","error");
+
+        itemCodeElement?.focus();
+
+        return false;
+    }
+
+
+    //// ========================================
+    //// Validate EC No
+    //// ========================================
+
+    const ecNoValid = await validateECNo(ecNo);
+
+
+    if (!ecNoValid) {
+
+        ecNoElement?.focus();
+
+        return false;
+    }
 
     try {
 
@@ -800,8 +956,7 @@ function addItem() {
     // EC Number
     // ========================================
 
-    const enteredEcNo =
-        ecNoElement.value.trim();
+    const enteredEcNo = ecNoElement.value.trim();
 
 
     // ========================================
@@ -842,7 +997,7 @@ function addItem() {
 
         // ------------------------------------
         // Item Name
-        // ------------------------------------
+        // --------------------------------itemCode----
 
         name:
             currentItem.productName ||
@@ -1783,106 +1938,67 @@ function updateTotals() {
     );
 
 
-    const beforeRound =
-        taxableAmount +
-        totalGst;
+
+    const beforeRound = taxableAmount; //+
+        //totalGst;
+
+    const roundValue = beforeRound % 1 === 0.5 ? beforeRound - 0.01 : beforeRound;
 
 
-    const rounded =
-        Math.round(
-            beforeRound
-        );
+    const rounded = Math.round(roundValue);
 
 
-    const roundOff =
-        rounded -
-        beforeRound;
+    const roundOff =rounded - beforeRound;
 
 
-    billingState.roundOff =
-        roundOff;
+    billingState.roundOff = roundOff;
 
-
-    const netAmount =
-        rounded;
+    const netAmount = rounded;
 
 
     /*
        Header
     */
 
-    setText(
-        "headerTotalItems",
-        billingState.items.length
-    );
+    setText( "headerTotalItems", billingState.items.length );
 
 
-    setText(
-        "headerTotalQty",
-        formatNumber(totalQty, 2)
-    );
+    setText( "headerTotalQty", formatNumber(totalQty, 2));
 
 
-    setText(
-        "headerBillAmount",
-        formatCurrency(netAmount)
-    );
+    setText( "headerBillAmount", formatCurrency(netAmount));
 
 
     /*
        Footer
     */
 
-    setValue(
-        "footerTotalItems",
-        billingState.items.length
-    );
+    setValue( "footerTotalItems",billingState.items.length);
 
 
-    setValue(
-        "footerTotalQty",
-        formatNumber(totalQty, 2)
-    );
+    setValue("footerTotalQty",formatNumber(totalQty, 2));
 
 
     /*
        Summary
     */
 
-    setText(
-        "subTotal",
-        formatCurrency(subTotal)
-    );
+    setText("subTotal",formatCurrency(subTotal));
 
 
-    setText(
-        "totalDiscount",
-        formatCurrency(totalDiscount)
-    );
+    setText("totalDiscount",formatCurrency(totalDiscount));
 
 
-    setText(
-        "taxableAmount",
-        formatCurrency(taxableAmount)
-    );
+    setText("taxableAmount",formatCurrency(taxableAmount));
 
 
-    setText(
-        "totalGst",
-        formatCurrency(totalGst)
-    );
+    setText("totalGst",formatCurrency(totalGst));
 
 
-    setText(
-        "roundOff",
-        formatCurrency(roundOff)
-    );
+    setText("roundOff",formatCurrency(roundOff));
 
 
-    setText(
-        "netAmount",
-        formatCurrency(netAmount)
-    );
+    setText("netAmount",formatCurrency(netAmount));
 
 }
 
@@ -1909,11 +2025,9 @@ function updatePayment() {
     let totalPaid = 0;
 
 
-    paymentIds.forEach(
-        function (id) {
+    paymentIds.forEach( function (id) {
 
-            const element =
-                getElement(id);
+            const element = getElement(id);
 
 
             if (!element) {
@@ -1921,18 +2035,17 @@ function updatePayment() {
             }
 
 
-            let value =
-                parseFloat(
-                    element.value
-                );
+            let value = parseFloat( element.value );
 
 
-            if (!Number.isFinite(value)) {
+            if (!Number.isFinite(value))
+            {
                 value = 0;
             }
 
 
-            if (value < 0) {
+            if (value < 0)
+            {
                 value = 0;
             }
 
@@ -1943,48 +2056,76 @@ function updatePayment() {
     );
 
 
-    const netAmount =
-        getNumericText(
-            getElement("netAmount")
-        );
+    const netAmount = getNumericText( getElement("netAmount") );
+
+    const cardElement =
+        getElement("cardAmount");
+
+    const upiElement =
+        getElement("upiAmount");
 
 
-    const balance =
-        netAmount -
-        totalPaid;
+    if (netAmount === 0)
+    {
+
+        // Hide Card row
+        if (cardElement)
+        {
+            cardElement.value = "0";
+            cardElement.closest(".payment-row")?.classList.add("hidden");
+        }
+
+        // Hide UPI row
+        if (upiElement)
+        {
+            upiElement.value = "0";
+            upiElement.closest(".payment-row")?.classList.add("hidden");
+        }
+
+    }
+    else
+    {
+
+        // Show Card row
+        if (cardElement)
+        {
+            cardElement.closest(".payment-row") ?.classList.remove("hidden");
+        }
+
+        // Show UPI row
+        if (upiElement)
+        {
+            upiElement.closest(".payment-row") ?.classList.remove("hidden");
+        }
+    }
 
 
-    setText(
-        "totalPaid",
-        formatCurrency(totalPaid)
-    );
+
+    const balance = netAmount - totalPaid;
 
 
-    const balanceElement =
-        getElement("balanceAmount");
+    setText( "totalPaid", formatCurrency(totalPaid));
+
+
+    const balanceElement = getElement("balanceAmount");
 
 
     if (balanceElement) {
 
-        if (balance <= 0) {
+        //if (balance <= 0) {
 
-            balanceElement.textContent =
-                formatCurrency(0);
+        //    balanceElement.textContent = formatCurrency(0);
 
-            balanceElement.classList.add(
-                "paid"
-            );
+        //    balanceElement.classList.add("paid");
 
-        } else {
+        //}
+        /*else {*/
 
-            balanceElement.textContent =
-                formatCurrency(balance);
+            balanceElement.textContent = formatCurrency(balance);
 
-            balanceElement.classList.remove(
-                "paid"
-            );
+            balanceElement.classList.remove("paid");
 
-        }
+        /*}*/
 
     }
 
@@ -3503,10 +3644,7 @@ window.onafterprint = function () {
 
 function cancelBill() {
 
-    const confirmed =
-        window.confirm(
-            "Cancel this bill?"
-        );
+    const confirmed = window.confirm( "Cancel this bill?");
 
 
     if (!confirmed) {
@@ -3524,10 +3662,7 @@ function cancelBill() {
     focusItemCode();
 
 
-    showToast(
-        "Bill cancelled.",
-        "success"
-    );
+    showToast("Bill cancelled.","success");
 
 }
 
@@ -3538,20 +3673,13 @@ function cancelBill() {
 
 function saveAndPrint() {
 
-    const netAmount =
-        getNumericText(
-            getElement("netAmount")
-        );
+    const netAmount = getNumericText( getElement("netAmount"));
 
 
-    if (
-        billingState.items.length === 0
-    ) {
+    if (billingState.items.length === 0)
+    {
 
-        showToast(
-            "Add at least one item before saving.",
-            "error"
-        );
+        showToast("Add at least one item before saving.","error");
 
         focusItemCode();
 
@@ -3560,15 +3688,10 @@ function saveAndPrint() {
     }
 
 
-    const totalPaid =
-        getNumericText(
-            getElement("totalPaid")
-        );
+    const totalPaid = getNumericText(getElement("totalPaid") );
 
 
-    if (
-        totalPaid < netAmount
-    ) {
+    if (totalPaid < netAmount) {
 
         showToast(
             "Payment is less than bill amount.",

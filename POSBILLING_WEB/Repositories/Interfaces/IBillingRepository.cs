@@ -9,13 +9,9 @@ namespace POSBILLING_WEB.Repositories.Interfaces
         Task<BillNoResponseDto> LoadBillNoAsync(int branchId,string connection);
         // Get Reprint Data
         Task<DataSet> GetPrintDetailsAsync(string billNo, int branchId, int subUnitId);
-
-        // Validate Barcode
-        //Task<ValidateBarcodeResponseDto> ValidateBarcodeAsync(string itemCode,int branchId,int subUnitId,string connection);
-
-        //Task<DataTable> GetItemDetailsAsync(string itemCode,int branchId,int subUnitId,string connection);
-
+        // Get Barcode Data
         Task<GetItemDetailsResponseDto?> GetItemDetailsAsync(string itemCode,int branchId,int subUnitId,string connection);
+        Task<EmployeeEcNoResponseDto?> ValidateECNoAsync(string ecNo, int branchId, int subUnitId,string connection);
 
     }
 }
